@@ -8,3 +8,5 @@ layout: home
 Chris Cressman is a software developer and writer at [Workarea Commerce](https://www.workarea.com).
 
 ![Chris Cressman](chris-cressman.jpg)
+
+Phone: (215) 431-4632
