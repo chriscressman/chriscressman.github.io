@@ -1,0 +1,167 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /*background-image: url('baseline-24px.png');*/
+  font-family: 'Quattrocento', serif;
+  font-size: 16px;
+  line-height: 24px;
+  background: whitesmoke;
+}
+
+a {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none;
+  border-bottom: 2px solid royalblue;
+}
+
+a:hover {
+  color: royalblue;
+}
+
+h1 {
+  margin: 12px 0 0;
+  font-size: 54px;
+  line-height: 72px;
+  font-weight: bold;
+}
+
+h2 {
+  margin: 36px 0 0;
+  font-size: 36px;
+  line-height: 36px;
+  font-weight: bold;
+}
+
+h3 {
+  margin: 36px 0 -12px;
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: bold;
+}
+
+p {
+  margin: 24px 0 0;
+}
+
+ol {
+  margin: 24px 0 0 18px;
+  list-style-type: decimal;
+}
+
+ul {
+  margin: 24px 0 0 18px;
+  list-style-type: disc;
+}
+
+ol ol,
+ol ul,
+ul ul,
+ul ol {
+  margin-top: 0;
+}
+
+.external-link {
+  border: none;
+}
+
+.external-link span {
+  border-bottom: 2px solid royalblue;
+}
+
+.external-link img {
+  width: 16px;
+  height: 16px;
+}
+
+.banner-wrapper {
+  background: white;
+  border-bottom: 2px solid silver;
+}
+
+.banner {
+  margin: 0 auto;
+  padding: 12px 24px;
+  min-width: 360px;
+  max-width: 600px;
+}
+
+.header {
+  display: inline-table;
+  vertical-align: middle;
+}
+
+.image {
+  display: table-cell;
+  padding: 0 12px;
+  vertical-align: top;
+}
+
+.image img {
+  display: block;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 2px solid silver;
+}
+
+.title {
+  display: table-cell;
+  padding: 0 12px;
+  vertical-align: top;
+  color: dimgray;
+}
+
+.title p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.title strong {
+  font-weight: bold;
+  font-size: 18px;
+  color: black;
+}
+
+.title a {
+  font-weight: normal;
+  border: none;
+}
+
+.navigation {
+  margin: 24px 0 0;
+  list-style: none;
+}
+
+.navigation li {
+  display: inline;
+  font-size: 20px;
+}
+
+.navigation li + li:before {
+  content: '• ';
+  margin: 0 12px;
+  color: silver;
+}
+
+.navigation a {
+  color: royalblue;
+  border: none;
+}
+
+.navigation a:hover {
+  color: inherit;
+}
+
+.main-wrapper {
+}
+
+.main {
+  margin: 0 auto;
+  padding: 24px;
+  min-width: 360px;
+  max-width: 600px;
+}
