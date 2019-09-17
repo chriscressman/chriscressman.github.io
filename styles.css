@@ -85,7 +85,7 @@ ul ol {
 .banner {
   margin: 0 auto;
   padding: 12px 24px;
-  min-width: 360px;
+  min-width: 384px;
   max-width: 600px;
   text-align: center;
 }
@@ -164,6 +164,6 @@ ul ol {
 .main {
   margin: 0 auto;
   padding: 24px;
-  min-width: 360px;
+  min-width: 384px;
   max-width: 600px;
 }
