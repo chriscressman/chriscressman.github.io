@@ -27,6 +27,7 @@ h1 {
   font-size: 54px;
   line-height: 72px;
   font-weight: bold;
+  text-align: center;
 }
 
 h2 {
@@ -62,6 +63,12 @@ ol ul,
 ul ul,
 ul ol {
   margin-top: 0;
+}
+
+.faux-heading {
+  margin-top: 12px;
+  margin-bottom: -16px;
+  font-style: italic;
 }
 
 .external-link {
