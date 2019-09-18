@@ -141,122 +141,109 @@ Workarea::Inventory::Policies::AllowBackorder</samp></pre>
       <h4 id="standard">Standard</h4>
       <p>The standard policy allows purchase only from the <code>:available</code> units, minus those in <code>:reserve</code>. An item is displayable if it is purchasable.</p>
       <p>Create an inventory SKU:</p>
-      <pre><code>sku = &#39;WIZRDRPG-5ED&#39;
-      inventory_sku = Workarea::Inventory::Sku.create(
-                        _id: sku,
-                        policy: &#39;standard&#39;,
-                        available: 0,
-                        backordered: 3,
-                        reserve: 1
-                      )</code></pre>
+      <pre><samp><kbd>sku = &#39;WIZRDRPG-5ED&#39;
+inventory_sku = Workarea::Inventory::Sku.create(
+                  _id: sku,
+                  policy: &#39;standard&#39;,
+                  available: 0,
+                  backordered: 3,
+                  reserve: 1
+                )</kbd></samp></pre>
       <p>Review the administrable values:</p>
-      <pre><code>inventory_sku.available
-      0
-
-      inventory_sku.backordered
-      3
-
-      inventory_sku.reserve
-      1</code></pre>
+      <pre><samp><kbd>inventory_sku.available</kbd>
+0
+<kbd>inventory_sku.backordered</kbd>
+3
+<kbd>inventory_sku.reserve</kbd>
+1</samp></pre>
       <p>There are none available to sell, because this policy does not allow purchase from <code>:backordered</code>:</p>
-      <pre><code>inventory_sku.available_to_sell
-      0</code></pre>
+      <pre><samp><kbd>inventory_sku.available_to_sell</kbd>
+0</samp></pre>
       <p>The item is therefore not purchasable and not displayable:</p>
-      <pre><code>inventory_sku.purchasable?
-      false
-
-      inventory_sku.displayable?
-      false</code></pre>
+      <pre><samp><kbd>inventory_sku.purchasable?</kbd>
+false
+<kbd>inventory_sku.displayable?</kbd>
+false</samp></pre>
       <p>And it is not considered backordered:</p>
-      <pre><code>inventory_sku.backordered?
-      false</code></pre>
+      <pre><samp><kbd>inventory_sku.backordered?</kbd>
+false</samp></pre>
 
       <h4 id="allow-backorder">Allow Backorder</h4>
       <p>When backorder is allowed, units from <code>:backordered</code> are additionally available for purchase, minus those in <code>:reserve</code>.</p>
       <p>Change the inventory SKU’s policy and re-initialize it (to clear the memoized policy object):</p>
-      <pre><code>inventory_sku.update_attribute(:policy, &#39;allow_backorder&#39;)
-      inventory_sku = Workarea::Inventory::Sku.find(sku)</code></pre>
+      <pre><samp><kbd>inventory_sku.update_attribute(:policy, &#39;allow_backorder&#39;)
+inventory_sku = Workarea::Inventory::Sku.find(sku)</kbd></samp></pre>
       <p>The administrable values haven’t changed:</p>
-      <pre><code>inventory_sku.available
-      0
-
-      inventory_sku.backordered
-      3
-
-      inventory_sku.reserve
-      1</code></pre>
+      <pre><samp><kbd>inventory_sku.available</kbd>
+0
+<kbd>inventory_sku.backordered</kbd>
+3
+<kbd>inventory_sku.reserve</kbd>
+1</samp></pre>
       <p>But the item is now considered backordered:</p>
-      <pre><code>inventory_sku.backordered?
-      true</code></pre>
+      <pre><samp><kbd>inventory_sku.backordered?</kbd>
+true</samp></pre>
       <p>And there are units to sell:</p>
-      <pre><code>inventory_sku.available_to_sell
-      2</code></pre>
+      <pre><samp><kbd>inventory_sku.available_to_sell</kbd>
+2</samp></pre>
       <p>Up to 2 units are purchasable; the 3rd is reserved:</p>
-      <pre><code>inventory_sku.purchasable?
-      true
-
-      inventory_sku.purchasable?(2)
-      true
-
-      inventory_sku.purchasable?(3)
-      false</code></pre>
+      <pre><samp><kbd>inventory_sku.purchasable?</kbd>
+true
+<kbd>inventory_sku.purchasable?(2)</kbd>
+true
+<kbd>inventory_sku.purchasable?(3)</kbd>
+false</samp></pre>
       <p>And the item is displayable:</p>
-      <pre><code>inventory_sku.displayable?
-      true</code></pre>
+      <pre><samp><kbd>inventory_sku.displayable?</kbd>
+true</samp></pre>
 
       <h4 id="displayable-when-out-of-stock">Displayable When Out of Stock</h4>
       <p>An item that is displayable when out of stock behaves like a standard item, except it remains displayable when not purchasable.</p>
       <p>Change the policy and re-init the inventory SKU:</p>
-      <pre><code>inventory_sku.update_attribute(:policy, &#39;displayable_when_out_of_stock&#39;)
-      inventory_sku = Workarea::Inventory::Sku.find(sku)</code></pre>
+      <pre><samp><kbd>inventory_sku.update_attribute(:policy, &#39;displayable_when_out_of_stock&#39;)
+inventory_sku = Workarea::Inventory::Sku.find(sku)</kbd></samp></pre>
       <p>No changes to the administrable values:</p>
-      <pre><code>inventory_sku.available
-      0
-
-      inventory_sku.backordered
-      3
-
-      inventory_sku.reserve
-      1</code></pre>
+      <pre><samp>inventory_sku.available
+0
+<kbd>inventory_sku.backordered</kbd>
+3
+<kbd>inventory_sku.reserve</kbd>
+1</samp></pre>
       <p>This policy does not allow backorder:</p>
-      <pre><code>inventory_sku.backordered?
-      false</code></pre>
+      <pre><samp><kbd>inventory_sku.backordered?</kbd>
+false</samp></pre>
       <p>So there are therefore none to sell, and the item is not purchasable:</p>
-      <pre><code>inventory_sku.available_to_sell
-      0
-
-      inventory_sku.purchasable?
-      false</code></pre>
+      <pre><samp><kbd>inventory_sku.available_to_sell</kbd>
+0
+<kbd>inventory_sku.purchasable?</kbd>
+false</samp></pre>
       <p>However, it is displayable:</p>
-      <pre><code>inventory_sku.displayable?
-      true</code></pre>
+      <pre><samp><kbd>inventory_sku.displayable?</kbd>
+true</samp></pre>
 
       <h4 id="ignore">Ignore</h4>
       <p>Ignoring inventory can be useful for intangible items, such as gift cards, that have effectively infinite inventory. A retailer may also use this policy if they are not concerned with tracking inventory within Workarea. This is the default inventory policy.</p>
       <p>Change the policy and re-init the inventory SKU:</p>
-      <pre><code>inventory_sku.update_attribute(:policy, &#39;ignore&#39;)
-      inventory_sku = Workarea::Inventory::Sku.find(sku)</code></pre>
+      <pre><samp><kbd>inventory_sku.update_attribute(:policy, &#39;ignore&#39;)
+inventory_sku = Workarea::Inventory::Sku.find(sku)</kbd></samp></pre>
       <p>Administrable values are the same:</p>
-      <pre><code>inventory_sku.available
-      0
-
-      inventory_sku.backordered
-      3
-
-      inventory_sku.reserve
-      1</code></pre>
+      <pre><samp><kbd>inventory_sku.available</kbd>
+0
+<kbd>inventory_sku.backordered</kbd>
+3
+<kbd>inventory_sku.reserve</kbd>
+1</samp></pre>
       <p>The item is not backordered:</p>
-      <pre><code>inventory_sku.backordered?
-      false</code></pre>
+      <pre><samp><kbd>inventory_sku.backordered?</kbd>
+false</samp></pre>
       <p>But there are effectively infinite units available (this value will not change, even as orders with this item are placed):</p>
-      <pre><code>inventory_sku.available_to_sell
-      99999</code></pre>
+      <pre><samp><kbd>inventory_sku.available_to_sell</kbd>
+99999</samp></pre>
       <p>The item is therefore always purchasable and displayable:</p>
-      <pre><code>inventory_sku.purchasable?
-      true
-
-      inventory_sku.displayable?
-      true</code></pre>
+      <pre><samp><kbd>inventory_sku.purchasable?</kbd>
+true
+<kbd>inventory_sku.displayable?</kbd>
+true</samp></pre>
 
       <h3 id="searches-categories-recommendations">Searches, Categories &amp; Recommendations</h3>
       <p>Workarea presents the items of the retailer’s catalog as <a>products</a>, which are (generally small) collections of items that share a name, description, and some details, while varying on other details (such as color, size, etc). When a product document is indexed into Elasticsearch, it contains inventory information from all the items that make up the product.</p>
@@ -280,11 +267,11 @@ Workarea::Inventory::Policies::AllowBackorder</samp></pre>
       <p>To more directly communicate an item’s availability to shoppers, Workarea displays <em>inventory status messages</em> on the PDP and in the cart. The messages are per-item, so on the PDP a shopper must first narrow the product to a specific item before being shown the inventory status.</p>
       <p>The inventory status shown is one of the following:</p>
       <ul>
-      <li>In Stock</li>
-      <li><em>Number</em> Left</li>
-      <li>Ships on <em>Date</em></li>
-      <li>Backordered</li>
-      <li>Out of Stock</li>
+        <li>In Stock</li>
+        <li><em>Number</em> Left</li>
+        <li>Ships on <em>Date</em></li>
+        <li>Backordered</li>
+        <li>Out of Stock</li>
       </ul>
       <p>These messages are for display only, and their logic is therefore encapsulated in a <a>view model</a>: <code>Storefront::InventoryStatusViewModel</code>. Review the implementation of that view model in your Workarea version to see the logic for each status.</p>
 
