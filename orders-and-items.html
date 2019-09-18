@@ -1,173 +1,174 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>orders-and-items</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-</head>
-<body>
-<nav id="TOC">
-<ul>
-<li><a href="#orders-items">Orders &amp; Items</a><ul>
-<li><a href="#consumer-environment">Consumer &amp; Environment</a></li>
-<li><a href="#items">Items</a><ul>
-<li><a href="#sku-quantity-details">SKU, Quantity &amp; Details</a></li>
-<li><a href="#price-adjustments">Price Adjustments</a></li>
-<li><a href="#item-totals">Item Totals</a></li>
-</ul></li>
-<li><a href="#promo-codes">Promo Codes</a></li>
-<li><a href="#order-totals">Order Totals</a></li>
-<li><a href="#summary">Summary</a></li>
-<li><a href="#notes">Notes</a></li>
-</ul></li>
-</ul>
-</nav>
-<h1 id="orders-items">Orders &amp; Items</h1>
-<p><a href="orders.html">Orders</a> are transactions between consumers and the retailer. Consumers create orders in the Storefront, as carts, to which they add items (and optionally promo codes). Consumers complete checkouts, thereby placing their orders. The placed orders, which act as permanent records of the transactions, are accessible to the retailer through the Admin.</p>
-<p>The <code>Order</code> class (which is also a module/namespace) is the primary model representing these transactions. Each order <a href="application-document.html">document</a> represents an order through its entire life cycle, from cart through order management. An order model therefore fulfills the roles of purchase order, invoice, and detailed receipt for a transaction.</p>
-<p>The <code>Order</code> model and its embedded items identify the consumer and the items that make up the transaction and their prices. More specifically, a placed order is composed of the following data:</p>
-<ul>
-<li>The identity of the consumer and their environment</li>
-<li>One or more items, each composed of:
-<ul>
-<li>A SKU, quantity, and additional details to identify and price the item</li>
-<li>One or more price adjustments representing granular pricing details</li>
-<li>The calculated item-level price totals</li>
-</ul></li>
-<li>Zero or more promo codes, which may affect item and order pricing</li>
-<li>The calculated order-level price totals</li>
-</ul>
-<h2 id="consumer-environment">Consumer &amp; Environment</h2>
-<p>Each order stores information identifying the consumer, who is either a guest, a user, an admin guest browsing, or an admin impersonating a user.</p>
-<p>At a minimum, a placed order has an email:</p>
-<pre><code>order = Workarea::Order.sample
-=&gt; #&lt;Workarea::Order _id: 39F628D36D, ... &gt;
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+    <title>Orders &amp; Items</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Fira+Sans&display=swap">
+    <link rel="stylesheet" href="document.css">
+  </head>
 
-order.email
-=&gt; &quot;bobbyclams@workarea.com&quot;</code></pre>
-<p>An order may have additional contextual information, such as the consumer’s IP address and an order <em>source</em>, such as <code>'storefront'</code>, <code>'admin'</code>, or <code>'api'</code>:</p>
-<pre><code>order.ip_address
-=&gt; &quot;127.0.0.1&quot;
+  <body>
 
-order.source
-=&gt; &quot;storefront&quot;</code></pre>
-<p>Orders placed by users, admins impersonating users, and admins guest browsing will additionally store the IDs of both users as the <code>user_id</code> and <code>checkout_by_id</code>.</p>
-<pre><code>order.user_id
-=&gt; &quot;5ab2b5b3eefbfe12dbb4b44b&quot;
+    <div class="medium-wrapper">
 
-order.checkout_by_id
-=&gt; &quot;5ab2b5b3eefbfe12dbb4b44b&quot;</code></pre>
-<p>Additional details about the consumer, such as name and shipping and billing addresses, are stored on other models and are not a concern of the <code>Order</code> model.</p>
-<h2 id="items">Items</h2>
-<p>Each order contains <em>items</em>, an embedded collection of type <code>Order::Item</code>.</p>
-<pre><code>order.items.count
-=&gt; 2
+      <h1 id="orders-items">Orders &amp; Items</h1>
+      <p><a href="orders.html">Orders</a> are transactions between consumers and the retailer. Consumers create orders in the Storefront, as carts, to which they add items (and optionally promo codes). Consumers complete checkouts, thereby placing their orders. The placed orders, which act as permanent records of the transactions, are accessible to the retailer through the Admin.</p>
+      <p>The <code>Order</code> class (which is also a module/namespace) is the primary model representing these transactions. Each order <a href="application-document.html">document</a> represents an order through its entire life cycle, from cart through order management. An order model therefore fulfills the roles of purchase order, invoice, and detailed receipt for a transaction.</p>
+      <p>The <code>Order</code> model and its embedded items identify the consumer and the items that make up the transaction and their prices. More specifically, a placed order is composed of the following data:</p>
+      <ul>
+      <li>The identity of the consumer and their environment</li>
+      <li>One or more items, each composed of:
+      <ul>
+      <li>A SKU, quantity, and additional details to identify and price the item</li>
+      <li>One or more price adjustments representing granular pricing details</li>
+      <li>The calculated item-level price totals</li>
+      </ul></li>
+      <li>Zero or more promo codes, which may affect item and order pricing</li>
+      <li>The calculated order-level price totals</li>
+      </ul>
 
-order.items.first.class
-=&gt; Workarea::Order::Item</code></pre>
-<p>Each item document contains the data the retailer needs to fulfill the item (SKU, quantity, and customizations), additional data to calculate the price(s) of the item (SKU details), and records of the actual prices calculated (price adjustments and item totals).</p>
-<h3 id="sku-quantity-details">SKU, Quantity &amp; Details</h3>
-<p>Each item represents a good or service from the retailer’s catalog, identified by its <em>SKU</em>. Typically, the SKU and quantity provide the minimum data required to fulfill the item. However, some items allow customization by the consumer (for example engraving or monogramming), in which case additional data is collected to perform the customization during fulfillment.</p>
-<pre><code>item = order.items.first
-=&gt; #&lt;Workarea::Order::Item _id: 5ab2b5eceefbfe12dbb4b451, ... &gt;
+      <nav>
+      <ul>
+      <li><a href="#orders-items">Orders &amp; Items</a><ul>
+      <li><a href="#consumer-environment">Consumer &amp; Environment</a></li>
+      <li><a href="#items">Items</a><ul>
+      <li><a href="#sku-quantity-details">SKU, Quantity &amp; Details</a></li>
+      <li><a href="#price-adjustments">Price Adjustments</a></li>
+      <li><a href="#item-totals">Item Totals</a></li>
+      </ul></li>
+      <li><a href="#promo-codes">Promo Codes</a></li>
+      <li><a href="#order-totals">Order Totals</a></li>
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#notes">Notes</a></li>
+      </ul></li>
+      </ul>
+      </nav>
 
-item.sku
-=&gt; &quot;524376751-4&quot;
+      <h2 id="consumer-environment">Consumer &amp; Environment</h2>
+      <p>Each order stores information identifying the consumer, who is either a guest, a user, an admin guest browsing, or an admin impersonating a user.</p>
+      <p>At a minimum, a placed order has an email:</p>
+      <pre><code>order = Workarea::Order.sample
+      =&gt; #&lt;Workarea::Order _id: 39F628D36D, ... &gt;
 
-item.quantity
-=&gt; 1
+      order.email
+      =&gt; &quot;bobbyclams@workarea.com&quot;</code></pre>
+      <p>An order may have additional contextual information, such as the consumer’s IP address and an order <em>source</em>, such as <code>'storefront'</code>, <code>'admin'</code>, or <code>'api'</code>:</p>
+      <pre><code>order.ip_address
+      =&gt; &quot;127.0.0.1&quot;
 
-item.customizations
-=&gt; {}</code></pre>
-<p>In most cases, additional details are saved on the item to ensure the item is priced accurately. The pricing subsystem uses a series of calculators to determine the total price of each item and the order overall. These calculators often depend on the additional item details to calculate pricing as expected. These details include the product ID and attributes (the entire product model, serialized), the categories in which the product appears, and whether the item is discountable.</p>
-<pre><code>item.product_id
-=&gt; &quot;66BC7BEA53&quot;
+      order.source
+      =&gt; &quot;storefront&quot;</code></pre>
+      <p>Orders placed by users, admins impersonating users, and admins guest browsing will additionally store the IDs of both users as the <code>user_id</code> and <code>checkout_by_id</code>.</p>
+      <pre><code>order.user_id
+      =&gt; &quot;5ab2b5b3eefbfe12dbb4b44b&quot;
 
-pp item.product_attributes.keys
-[&quot;_id&quot;,
-&quot;tags&quot;,
-&quot;active&quot;,
-&quot;subscribed_user_ids&quot;,
-&quot;details&quot;,
-&quot;filters&quot;,
-&quot;template&quot;,
-&quot;purchasable&quot;,
-&quot;name&quot;,
-&quot;digital&quot;,
-&quot;description&quot;,
-&quot;slug&quot;,
-&quot;updated_at&quot;,
-&quot;created_at&quot;,
-&quot;variants&quot;]
+      order.checkout_by_id
+      =&gt; &quot;5ab2b5b3eefbfe12dbb4b44b&quot;</code></pre>
+      <p>Additional details about the consumer, such as name and shipping and billing addresses, are stored on other models and are not a concern of the <code>Order</code> model.</p>
+      <h2 id="items">Items</h2>
+      <p>Each order contains <em>items</em>, an embedded collection of type <code>Order::Item</code>.</p>
+      <pre><code>order.items.count
+      =&gt; 2
 
-pp item.category_ids
-[&quot;5ab2b04beefbfe1185011c9d&quot;,
-&quot;5ab2b04beefbfe1185011c9f&quot;,
-&quot;5ab2b04beefbfe1185011c9b&quot;]
+      order.items.first.class
+      =&gt; Workarea::Order::Item</code></pre>
+      <p>Each item document contains the data the retailer needs to fulfill the item (SKU, quantity, and customizations), additional data to calculate the price(s) of the item (SKU details), and records of the actual prices calculated (price adjustments and item totals).</p>
+      <h3 id="sku-quantity-details">SKU, Quantity &amp; Details</h3>
+      <p>Each item represents a good or service from the retailer’s catalog, identified by its <em>SKU</em>. Typically, the SKU and quantity provide the minimum data required to fulfill the item. However, some items allow customization by the consumer (for example engraving or monogramming), in which case additional data is collected to perform the customization during fulfillment.</p>
+      <pre><code>item = order.items.first
+      =&gt; #&lt;Workarea::Order::Item _id: 5ab2b5eceefbfe12dbb4b451, ... &gt;
 
-item.discountable
-=&gt; true</code></pre>
-<p>The forthcoming guide, “Managing Carts”, will describe API calls for fetching these details and storing them on the order item.</p>
-<h3 id="price-adjustments">Price Adjustments</h3>
-<p>Each time an order is priced, the granular pricing details are stored on the item as <em>price adjustments</em>, an embedded collection of type <code>Workarea::PriceAdjustment</code>. These embedded documents provide the necessary details to determine the total price of an item (in the case of a cart) and a record of how that price was determined (in the case of a placed order).</p>
-<pre><code>item.price_adjustments.count
-=&gt; 2
+      item.sku
+      =&gt; &quot;524376751-4&quot;
 
-price_adjustment = item.price_adjustments.last
-=&gt; #&lt;Workarea::PriceAdjustment _id: 5ab2b0a2eefbfe11850123f2, ... &gt;
+      item.quantity
+      =&gt; 1
 
-price_adjustment.amount.to_f
-=&gt; -8.32
+      item.customizations
+      =&gt; {}</code></pre>
+      <p>In most cases, additional details are saved on the item to ensure the item is priced accurately. The pricing subsystem uses a series of calculators to determine the total price of each item and the order overall. These calculators often depend on the additional item details to calculate pricing as expected. These details include the product ID and attributes (the entire product model, serialized), the categories in which the product appears, and whether the item is discountable.</p>
+      <pre><code>item.product_id
+      =&gt; &quot;66BC7BEA53&quot;
 
-price_adjustment.description
-=&gt; &quot;10% Off Order&quot;</code></pre>
-<p>Item pricing is volatile; prices fluctuate and vary based on quantity, sales, discounts, and other factors. The unit price of an item and the adjustments that may apply due to active discounts and other factors are likely to change from order to order, and may even change within the lifespan of a single cart. Therefore, each order is continually re-priced until it is placed.</p>
-<p>While the details of order pricing and price adjustments are outside the scope of this guide, one detail is notable here: order items and <a href="shipping.html">shippings</a> are the only models that embed price adjustments. All <em>order</em> and <em>item</em> adjustments are stored on an order’s <em>items</em>, while all <em>shipping</em> and <em>tax</em> adjustments are stored on the <em>shippings</em> related to the order.</p>
-<h3 id="item-totals">Item Totals</h3>
-<p>Additionally, each time an order is priced, the total price and value<sup><a href="#notes" id="note-2-context">[1]</a></sup> of each item are written onto the item as fields. These values provide a snapshot of the “agreed upon” price of the item, as calculated by the pricing module. The consumer can metaphorically “negotiate” this price by shopping at a different time (during a sale or promotion) or applying promo codes to the order.</p>
-<p>In the case of a cart, these values may change before the order is placed. The values are displayed to the consumer when viewing the cart and throughout checkout. In the case of a placed order, these represent the price at which the item sold, which may differ for another consumer purchasing the same item or the same consumer when placing a different order.</p>
-<pre><code>item.total_price.to_f
-=&gt; 83.24
+      pp item.product_attributes.keys
+      [&quot;_id&quot;,
+      &quot;tags&quot;,
+      &quot;active&quot;,
+      &quot;subscribed_user_ids&quot;,
+      &quot;details&quot;,
+      &quot;filters&quot;,
+      &quot;template&quot;,
+      &quot;purchasable&quot;,
+      &quot;name&quot;,
+      &quot;digital&quot;,
+      &quot;description&quot;,
+      &quot;slug&quot;,
+      &quot;updated_at&quot;,
+      &quot;created_at&quot;,
+      &quot;variants&quot;]
 
-item.total_value.to_f
-=&gt; 74.92</code></pre>
-<h2 id="promo-codes">Promo Codes</h2>
-<p>Returning to the order, in addition to items, consumers can add promo codes, which may qualify the order or its items for discounts, resulting in more favorable pricing for the consumer. Unlike items, which are embedded documents, promo codes are simply strings stored in an array on the order.</p>
-<pre><code>order.promo_codes
-=&gt; [&quot;10PERCENTOFF&quot;]</code></pre>
-<p>The order model provides API calls to add promo codes, which ensure the collection contains only unique, uppercase string values. The forthcoming “Managing Carts” guide will cover this topic.</p>
-<h2 id="order-totals">Order Totals</h2>
-<p>Similarly to item totals, when the pricing module prices an order, it writes the order-level totals to the order as fields. For a cart, these values represent the last calculated “asking price” of the order, and for a placed order they represent the final transaction prices. The Storefront displays these values in the cart and checkout for the consumer, and the Admin displays these values to the retailer in the order administration screens and reports.</p>
-<pre><code>order.subtotal_price.to_f
-=&gt; 153.23
+      pp item.category_ids
+      [&quot;5ab2b04beefbfe1185011c9d&quot;,
+      &quot;5ab2b04beefbfe1185011c9f&quot;,
+      &quot;5ab2b04beefbfe1185011c9b&quot;]
 
-order.shipping_total.to_f
-=&gt; 7.0
+      item.discountable
+      =&gt; true</code></pre>
+      <p>The forthcoming guide, “Managing Carts”, will describe API calls for fetching these details and storing them on the order item.</p>
+      <h3 id="price-adjustments">Price Adjustments</h3>
+      <p>Each time an order is priced, the granular pricing details are stored on the item as <em>price adjustments</em>, an embedded collection of type <code>Workarea::PriceAdjustment</code>. These embedded documents provide the necessary details to determine the total price of an item (in the case of a cart) and a record of how that price was determined (in the case of a placed order).</p>
+      <pre><code>item.price_adjustments.count
+      =&gt; 2
 
-order.tax_total.to_f
-=&gt; 10.14
+      price_adjustment = item.price_adjustments.last
+      =&gt; #&lt;Workarea::PriceAdjustment _id: 5ab2b0a2eefbfe11850123f2, ... &gt;
 
-order.total_price.to_f
-=&gt; 155.05
+      price_adjustment.amount.to_f
+      =&gt; -8.32
 
-order.total_value.to_f
-=&gt; 137.91</code></pre>
-<p>While the full details of pricing are outside the scope of this guide, note that subtotal price is derived from the price adjustments stored on the <em>items</em>, while the shipping and tax totals are derived from the price adjustments stored on the related <em>shippings</em>.</p>
-<h2 id="summary">Summary</h2>
-<ul>
-<li>Orders build and record consumer/retailer transactions, which contain the consumer’s identity, the items being transacted, and the “current” pricing as calculated by the pricing subsystem</li>
-<li>Each item on an order contains the SKU and quantity, along with other details to accurately price the item</li>
-<li>Consumers can add promo codes to the order, which may also affect pricing</li>
-<li>Pricing is recorded on each item as granular price adjustments and calculated item-level totals, and on the order as calculated order-level totals</li>
-</ul>
-<h2 id="notes">Notes</h2>
-<p>[1] Upcoming pricing documentation will describe the concept of price vs value.</p>
-</body>
+      price_adjustment.description
+      =&gt; &quot;10% Off Order&quot;</code></pre>
+      <p>Item pricing is volatile; prices fluctuate and vary based on quantity, sales, discounts, and other factors. The unit price of an item and the adjustments that may apply due to active discounts and other factors are likely to change from order to order, and may even change within the lifespan of a single cart. Therefore, each order is continually re-priced until it is placed.</p>
+      <p>While the details of order pricing and price adjustments are outside the scope of this guide, one detail is notable here: order items and <a href="shipping.html">shippings</a> are the only models that embed price adjustments. All <em>order</em> and <em>item</em> adjustments are stored on an order’s <em>items</em>, while all <em>shipping</em> and <em>tax</em> adjustments are stored on the <em>shippings</em> related to the order.</p>
+      <h3 id="item-totals">Item Totals</h3>
+      <p>Additionally, each time an order is priced, the total price and value<sup><a href="#notes" id="note-2-context">[1]</a></sup> of each item are written onto the item as fields. These values provide a snapshot of the “agreed upon” price of the item, as calculated by the pricing module. The consumer can metaphorically “negotiate” this price by shopping at a different time (during a sale or promotion) or applying promo codes to the order.</p>
+      <p>In the case of a cart, these values may change before the order is placed. The values are displayed to the consumer when viewing the cart and throughout checkout. In the case of a placed order, these represent the price at which the item sold, which may differ for another consumer purchasing the same item or the same consumer when placing a different order.</p>
+      <pre><code>item.total_price.to_f
+      =&gt; 83.24
+
+      item.total_value.to_f
+      =&gt; 74.92</code></pre>
+      <h2 id="promo-codes">Promo Codes</h2>
+      <p>Returning to the order, in addition to items, consumers can add promo codes, which may qualify the order or its items for discounts, resulting in more favorable pricing for the consumer. Unlike items, which are embedded documents, promo codes are simply strings stored in an array on the order.</p>
+      <pre><code>order.promo_codes
+      =&gt; [&quot;10PERCENTOFF&quot;]</code></pre>
+      <p>The order model provides API calls to add promo codes, which ensure the collection contains only unique, uppercase string values. The forthcoming “Managing Carts” guide will cover this topic.</p>
+      <h2 id="order-totals">Order Totals</h2>
+      <p>Similarly to item totals, when the pricing module prices an order, it writes the order-level totals to the order as fields. For a cart, these values represent the last calculated “asking price” of the order, and for a placed order they represent the final transaction prices. The Storefront displays these values in the cart and checkout for the consumer, and the Admin displays these values to the retailer in the order administration screens and reports.</p>
+      <pre><code>order.subtotal_price.to_f
+      =&gt; 153.23
+
+      order.shipping_total.to_f
+      =&gt; 7.0
+
+      order.tax_total.to_f
+      =&gt; 10.14
+
+      order.total_price.to_f
+      =&gt; 155.05
+
+      order.total_value.to_f
+      =&gt; 137.91</code></pre>
+      <p>While the full details of pricing are outside the scope of this guide, note that subtotal price is derived from the price adjustments stored on the <em>items</em>, while the shipping and tax totals are derived from the price adjustments stored on the related <em>shippings</em>.</p>
+      <h2 id="summary">Summary</h2>
+      <ul>
+      <li>Orders build and record consumer/retailer transactions, which contain the consumer’s identity, the items being transacted, and the “current” pricing as calculated by the pricing subsystem</li>
+      <li>Each item on an order contains the SKU and quantity, along with other details to accurately price the item</li>
+      <li>Consumers can add promo codes to the order, which may also affect pricing</li>
+      <li>Pricing is recorded on each item as granular price adjustments and calculated item-level totals, and on the order as calculated order-level totals</li>
+      </ul>
+      <h2 id="notes">Notes</h2>
+      <p>[1] Upcoming pricing documentation will describe the concept of price vs value.</p>
+  </body>
 </html>

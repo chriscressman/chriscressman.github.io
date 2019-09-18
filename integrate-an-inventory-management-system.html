@@ -1,65 +1,66 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>integrate-an-inventory-management-system</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-</head>
-<body>
-<nav id="TOC">
-<ul>
-<li><a href="#integrate-an-inventory-management-system">Integrate an Inventory Management System</a><ul>
-<li><a href="#update-inventory-skus-within-workarea">Update Inventory SKUs within Workarea</a></li>
-<li><a href="#report-workareas-inventory-transactions">Report Workarea’s Inventory Transactions</a></li>
-<li><a href="#general-tips-for-system-integration">General Tips for System Integration</a><ul>
-<li><a href="#determine-responsibilities">Determine Responsibilities</a></li>
-<li><a href="#build-the-integration">Build the Integration</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-<h1 id="integrate-an-inventory-management-system">Integrate an Inventory Management System</h1>
-<p>Workarea provides an inventory system that satisfies the needs of many retailers. However, some retailers prefer to manage their inventory in another system, usually an enterprise resource planner (ERP).</p>
-<p>In this case, you will need to integrate Workarea with the external system to keep their inventory data in sync, which is the subject of this document. To integrate inventory from an ERP, you must routinely update Workarea’s inventory SKUs with data from the authoritative inventory system, specifically the fields <code>:available</code> and <code>:backordered</code>. Furthermore, you may need to report to the external system any changes that Workarea makes to these fields, which are recorded in inventory transactions.</p>
-<p>This document additionally provides general advice for integrating Workarea with another system (of any type).</p>
-<h2 id="update-inventory-skus-within-workarea">Update Inventory SKUs within Workarea</h2>
-<p>Within Workarea, each item’s inventory is represented by an inventory SKU, which is identified by the item’s SKU. ( See <a href="inventory.html#inventory-skus_2">Inventory: Inventory SKUs</a>. ) Several administrable fields, primarily the integer fields <code>:available</code> and <code>:backordered</code>, represent the “raw” inventory data tracked by Workarea. ( See <a href="inventory.html#administrable-fields-amp-policies_3">Inventory: Administrable Fields &amp; Policies</a>. )</p>
-<p>You must design a strategy for keeping these fields in sync with the corresponding data from the external inventory system. <strong>Maintaining accurate values for these fields is the core of this integration.</strong> Refer to “General Tips for System Integration” below for further advice on this matter.</p>
-<h2 id="report-workareas-inventory-transactions">Report Workarea’s Inventory Transactions</h2>
-<p>Workarea also makes its own changes to the inventory SKU values <code>:available</code> and <code>:backordered</code> when shoppers place and cancel orders. ( See <a href="inventory.html#purchasing-capturing-amp-releasing-inventory_14">Inventory: Purchasing, Capturing &amp; Releasing Inventory</a>. ) You therefore may need to report these changes to the system you are integrating. ( This may not be necessary if the external system manages these changes, perhaps during fulfillment rather than at the point of sale. )</p>
-<p>Whenever Workarea captures and frees inventory in this manner, it records details of the changes as an <code>Inventory::Transaction</code> specific to the order. Each inventory transaction is related to an order via its <code>:order_id</code> field. Whenever Workarea performs a capture, rollbak, or restock operation on inventory, its affects are recorded on the inventory transaction document, and its <code>:updated_at</code> timestamp is refreshed. Additionally, you can query whether a transaction’s inventory has been captured by examining its boolean <code>:captured</code> field.</p>
-<p>Inventory transactions are indexed by <code>:updated_at</code> and <code>:captured</code>, facilitating queries for “captured transactions updated after <em>date</em>”:</p>
-<p>find inventory transactions updated after Midnight</p>
-<pre><code>Workarea::Inventory::Transaction.where(
-  :updated_at.gt =&gt; Time.current.beginning_of_day,
-  captured: true
-)</code></pre>
-<p>You can use such a query to fetch the transactions that were updated since your last such query, enabling you to prepare ad-hoc reports to send to the partnering system. Each inventory transaction embeds a collection of <code>Inventory::TransactionItem</code> documents, one document per corresponding <code>Order::Item</code>. Each transaction item has the fields <code>:sku</code>, <code>:available</code>, and <code>:backordered</code>, where <code>:available</code> and <code>:backordered</code> indicate the number of units captured. You or the ERP can fetch and share this data routinely to keep the external system in sync with Workarea’s inventory changes.</p>
-<h2 id="general-tips-for-system-integration">General Tips for System Integration</h2>
-<p>Until Workarea provides general-purpose documentation for system integration, a brief summary of the process is described here.</p>
-<h3 id="determine-responsibilities">Determine Responsibilities</h3>
-<p>An integration involves two systems and two teams, so you must determine who is responsible for what. Work with the partnering team to determine the following:</p>
-<ul>
-<li>Who is pushing or pulling data?</li>
-<li>According to what schedule or in response to what events?</li>
-<li>Who is responsible for transforming the data to/from the opposing data format?</li>
-<li>When updating, are you updating all the records, or only those that have changed since the last update?</li>
-<li>And who is responsible for determining which records have changed since the last update?</li>
-</ul>
-<h3 id="build-the-integration">Build the Integration</h3>
-<p>Next, build the parts of the integration for which you are responsible. Tools for this within the Workarea system include:</p>
-<ul>
-<li><a href="https://plugins.workarea.com/plugins/api-admin">Admin API</a></li>
-<li><a href="workers.html#callbacks-worker_7">Callbacks workers</a></li>
-<li><a href="workers.html#sidekiq-cron-job_5">Scheduled workers</a></li>
-<li><a href="https://plugins.workarea.com/plugins/data-file-scheduling">Data file scheduling</a></li>
-</ul>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+    <title>Integrate an Inventory Management System</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Fira+Sans&display=swap">
+    <link rel="stylesheet" href="document.css">
+  </head>
+
+  <body>
+
+    <div class="medium-wrapper">
+
+      <h1 id="integrate-an-inventory-management-system">Integrate an Inventory Management System</h1>
+      <p>Workarea provides an inventory system that satisfies the needs of many retailers. However, some retailers prefer to manage their inventory in another system, usually an enterprise resource planner (ERP).</p>
+      <p>In this case, you will need to integrate Workarea with the external system to keep their inventory data in sync, which is the subject of this document. To integrate inventory from an ERP, you must routinely update Workarea’s inventory SKUs with data from the authoritative inventory system, specifically the fields <code>:available</code> and <code>:backordered</code>. Furthermore, you may need to report to the external system any changes that Workarea makes to these fields, which are recorded in inventory transactions.</p>
+      <p>This document additionally provides general advice for integrating Workarea with another system (of any type).</p>
+
+      <nav>
+      <ul>
+      <li><a href="#integrate-an-inventory-management-system">Integrate an Inventory Management System</a><ul>
+      <li><a href="#update-inventory-skus-within-workarea">Update Inventory SKUs within Workarea</a></li>
+      <li><a href="#report-workareas-inventory-transactions">Report Workarea’s Inventory Transactions</a></li>
+      <li><a href="#general-tips-for-system-integration">General Tips for System Integration</a><ul>
+      <li><a href="#determine-responsibilities">Determine Responsibilities</a></li>
+      <li><a href="#build-the-integration">Build the Integration</a></li>
+      </ul></li>
+      </ul></li>
+      </ul>
+      </nav>
+
+      <h2 id="update-inventory-skus-within-workarea">Update Inventory SKUs within Workarea</h2>
+      <p>Within Workarea, each item’s inventory is represented by an inventory SKU, which is identified by the item’s SKU. ( See <a href="inventory.html#inventory-skus_2">Inventory: Inventory SKUs</a>. ) Several administrable fields, primarily the integer fields <code>:available</code> and <code>:backordered</code>, represent the “raw” inventory data tracked by Workarea. ( See <a href="inventory.html#administrable-fields-amp-policies_3">Inventory: Administrable Fields &amp; Policies</a>. )</p>
+      <p>You must design a strategy for keeping these fields in sync with the corresponding data from the external inventory system. <strong>Maintaining accurate values for these fields is the core of this integration.</strong> Refer to “General Tips for System Integration” below for further advice on this matter.</p>
+      <h2 id="report-workareas-inventory-transactions">Report Workarea’s Inventory Transactions</h2>
+      <p>Workarea also makes its own changes to the inventory SKU values <code>:available</code> and <code>:backordered</code> when shoppers place and cancel orders. ( See <a href="inventory.html#purchasing-capturing-amp-releasing-inventory_14">Inventory: Purchasing, Capturing &amp; Releasing Inventory</a>. ) You therefore may need to report these changes to the system you are integrating. ( This may not be necessary if the external system manages these changes, perhaps during fulfillment rather than at the point of sale. )</p>
+      <p>Whenever Workarea captures and frees inventory in this manner, it records details of the changes as an <code>Inventory::Transaction</code> specific to the order. Each inventory transaction is related to an order via its <code>:order_id</code> field. Whenever Workarea performs a capture, rollbak, or restock operation on inventory, its affects are recorded on the inventory transaction document, and its <code>:updated_at</code> timestamp is refreshed. Additionally, you can query whether a transaction’s inventory has been captured by examining its boolean <code>:captured</code> field.</p>
+      <p>Inventory transactions are indexed by <code>:updated_at</code> and <code>:captured</code>, facilitating queries for “captured transactions updated after <em>date</em>”:</p>
+      <p>find inventory transactions updated after Midnight</p>
+      <pre><code>Workarea::Inventory::Transaction.where(
+        :updated_at.gt =&gt; Time.current.beginning_of_day,
+        captured: true
+      )</code></pre>
+      <p>You can use such a query to fetch the transactions that were updated since your last such query, enabling you to prepare ad-hoc reports to send to the partnering system. Each inventory transaction embeds a collection of <code>Inventory::TransactionItem</code> documents, one document per corresponding <code>Order::Item</code>. Each transaction item has the fields <code>:sku</code>, <code>:available</code>, and <code>:backordered</code>, where <code>:available</code> and <code>:backordered</code> indicate the number of units captured. You or the ERP can fetch and share this data routinely to keep the external system in sync with Workarea’s inventory changes.</p>
+      <h2 id="general-tips-for-system-integration">General Tips for System Integration</h2>
+      <p>Until Workarea provides general-purpose documentation for system integration, a brief summary of the process is described here.</p>
+      <h3 id="determine-responsibilities">Determine Responsibilities</h3>
+      <p>An integration involves two systems and two teams, so you must determine who is responsible for what. Work with the partnering team to determine the following:</p>
+      <ul>
+      <li>Who is pushing or pulling data?</li>
+      <li>According to what schedule or in response to what events?</li>
+      <li>Who is responsible for transforming the data to/from the opposing data format?</li>
+      <li>When updating, are you updating all the records, or only those that have changed since the last update?</li>
+      <li>And who is responsible for determining which records have changed since the last update?</li>
+      </ul>
+      <h3 id="build-the-integration">Build the Integration</h3>
+      <p>Next, build the parts of the integration for which you are responsible. Tools for this within the Workarea system include:</p>
+      <ul>
+      <li><a href="https://plugins.workarea.com/plugins/api-admin">Admin API</a></li>
+      <li><a href="workers.html#callbacks-worker_7">Callbacks workers</a></li>
+      <li><a href="workers.html#sidekiq-cron-job_5">Scheduled workers</a></li>
+      <li><a href="https://plugins.workarea.com/plugins/data-file-scheduling">Data file scheduling</a></li>
+      </ul>
+  </body>
 </html>
