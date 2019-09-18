@@ -17,14 +17,15 @@
       <p>To perform these tasks, you need to know how to define and configure inventory policies, which is the subject of this document. To define your own policy, add a class which implements the inventory policy interface: <code>#available_to_sell</code>, <code>#displayable?</code>, and <code>#purchase</code>. Then, to make the policy available, or to otherwise affect the available policies, manipulate the configurable inventory policy collection: <code>Workarea.config.inventory_policies</code>.</p>
 
       <nav>
-      <ul>
-      <li><a href="#define-configure-inventory-policies">Define &amp; Configure Inventory Policies</a><ul>
-      <li><a href="#define-new-policies">Define New Policies</a><ul>
-      <li><a href="#examples">Examples</a></li>
-      </ul></li>
-      <li><a href="#configure-available-policies">Configure Available Policies</a></li>
-      </ul></li>
-      </ul>
+        <ul>
+          <li>
+            <a href="#define-new-policies">Define New Policies</a>
+            <ul>
+              <li><a href="#examples">Examples</a></li>
+            </ul>
+          </li>
+          <li><a href="#configure-available-policies">Configure Available Policies</a></li>
+        </ul>
       </nav>
 
       <h2 id="define-new-policies">Define New Policies</h2>
@@ -33,59 +34,63 @@
       <p>Within this file, define a class within the module <code>Workarea::Inventory::Policies</code> that inherits from <code>Base</code> or a policy on which you will base the new policy.</p>
       <p>Finally, implement or re-implement any of the following methods that are unique to your policy (if inheriting from <code>Base</code>, you’ll need to implement all of them):</p>
       <ul>
-      <li><code>#available_to_sell</code></li>
-      <li><code>#displayable?</code></li>
-      <li><code>#purchase(quantity)</code></li>
+        <li><code>#available_to_sell</code></li>
+        <li><code>#displayable?</code></li>
+        <li><code>#purchase(quantity)</code></li>
       </ul>
       <p>If you are unfamiliar with any of these methods, see <a href="inventory.html#inventory-policies-amp-sku-states_5">Inventory: Inventory Policies &amp; SKU States</a> and <a href="inventory.html#purchasing-capturing-amp-releasing-inventory_14">Inventory: Purchasing, Capturing, and Releasing Inventory</a>, and refer to the implementations of these methods within the existing inventory policies. The following command will print the pathnames of the inventory policies available to your application:</p>
       <pre><code>find $(pwd) $(bundle show --paths | grep workarea) \
-      -path &#39;*/app/*/inventory/policies/*.rb&#39; | sort -u</code></pre>
+-path &#39;*/app/*/inventory/policies/*.rb&#39; | sort -u</code></pre>
+
       <h3 id="examples">Examples</h3>
       <p>As an example, the “offline” policy ensures a shopper can view the item on the website but cannot purchase it (which must be done over the phone or by some other means explained on the screen):</p>
       <pre><code># &lt;app or plugin root&gt;/app/models/workarea/inventory/policies/offline.rb
 
-      module Workarea
-        module Inventory
-          module Policies
-            class Offline &lt; Base
-              def displayable?
-                true
-              end
-
-              def available_to_sell
-                0
-              end
-
-              def purchase(quantity)
-                # noop
-              end
-            end
-          end
+module Workarea
+  module Inventory
+    module Policies
+      class Offline &lt; Base
+        def displayable?
+          true
         end
-      end</code></pre>
+
+        def available_to_sell
+          0
+        end
+
+        def purchase(quantity)
+          # noop
+        end
+      end
+    end
+  end
+end</code></pre>
       <p>The “in store only” policy relies on other extensions that exist in the application or plugin:</p>
       <pre><code># &lt;app or plugin root&gt;/app/models/workarea/inventory/policies/in_store_only.rb
 
-      module Workarea
-        module Inventory
-          module Policies
-            class InStoreOnly &lt; Standard
-              def available_to_sell
-                sku.available_in_store
-              end
-
-              def purchase(quantity)
-                # noop
-              end
-            end
-          end
+module Workarea
+  module Inventory
+    module Policies
+      class InStoreOnly &lt; Standard
+        def available_to_sell
+          sku.available_in_store
         end
-      end</code></pre>
+
+        def purchase(quantity)
+          # noop
+        end
+      end
+    end
+  end
+end</code></pre>
+
       <h2 id="configure-available-policies">Configure Available Policies</h2>
       <p>Add your new policy to the configurable collection of available inventory policies:</p>
       <pre><code># &lt;app or plugin root&gt;/config/initializers/inventory_policies.rb
 
-      Workarea.config.inventory_policies &lt;&lt; &#39;Workarea::Inventory::Policies::Offline&#39;</code></pre>
+Workarea.config.inventory_policies &lt;&lt; &#39;Workarea::Inventory::Policies::Offline&#39;</code></pre>
       <p>You can also remove or sort the policies using the methods of <a href="swappable-list-data-structure.html">SwappableList</a>. When saving an inventory policy, its policy is validated to ensure it is a member of this collection. And this is the list of policies that is presented for selection within the inventory SKU administration screens. The first policy in this collection is the default policy for new inventory SKUs.</p>
+
+    </div>
   </body>
 </html>
