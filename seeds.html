@@ -13,13 +13,12 @@
 
       <h1 id="seeds">Seeds</h1>
       <p><dfn>Seeds</dfn> are default data appropriate for developing, testing, or otherwise using a Workarea application, particularly in a development environment. <dfn>Seeding</dfn> is the process of writing the seeds within a particular environment.</p>
-      <p>Be careful! <strong>Seeding is a destructive process</strong> that purges all existing MongoDB and Elasticsearch data before writing. Be certain you are willing to lose all data before running seeds in an environment.</p>
-      <p>Seeding is performed exclusively through a command line interface. To seed an environment, bundle the application and run the db:seed task:</p>
-      <pre><samp>$ <kbd>cd application_directory</kbd>
+      <p><strong>Be careful!</strong> Seeding is a destructive process that purges all existing MongoDB and Elasticsearch data before writing. Be certain you are willing to lose all data before running seeds in an environment.</p>
+      <p>Seeding is performed exclusively through a command line interface. To seed an environment, bundle the application and run the <i>db:seed</i> task:</p>
+      <pre><samp>$ <kbd>cd <var>application_directory</var></kbd>
 $ <kbd>bundle</kbd>
 $ <kbd>bin/rails db:seed</kbd></samp></pre>
-      <p>See below for a detailed example.</p>
-      <p>The base platform includes the seeds necessary to use a generic Workarea application. Plugins and applications can extend seeds as necessary to support platform customizations. (I’ll cover seeds implementation and extension in detail in a future guide.)</p>
+      <p>The base platform includes the seeds necessary to use a generic Workarea application. Plugins and applications can extend seeds as necessary to support platform customizations.</p>
 
       <nav>
         <ul>
@@ -40,19 +39,19 @@ $ <kbd>bin/rails db:seed</kbd></samp></pre>
       </nav>
 
       <h2 id="seeding-a-new-development-environment">Seeding a New Development Environment</h2>
-      <p>To demonstrate seeds, consider the fictional Workarea application <cite>Boardgamz</cite>, newly created within a fresh <a href="create-a-new-app.html">Workarea app</a>.</p>
+      <p>To demonstrate seeds, consider the fictional Workarea application <cite>Boardgamz</cite>, newly created within a fresh <a>Workarea app</a>.</p>
 
       <h3 id="before-seeding">Before Seeding</h3>
       <p>This environment has no MongoDB databases, collections, or documents, except for the default <em>test</em> and <em>local</em> databases:</p>
-      <pre><code>$ mongo --eval &#39;db.getMongo().getDBNames()&#39;
+      <pre><samp>$ <kbd>mongo --eval &#39;db.getMongo().getDBNames()&#39;</kbd>
 MongoDB shell version: 3.2.5
 connecting to: test
 [&quot;local&quot;]
-$</code></pre>
+$</samp></pre>
       <p>And there are no Elasticsearch indexes or documents:</p>
-      <pre><code>$ curl localhost:9200/_cat/indices?v
+      <pre><samp>$ <kbd>curl localhost:9200/_cat/indices?v</kbd>
 health status index uuid pri rep docs.count docs.deleted store.size pri.store.size
-$</code></pre>
+$</samp></pre>
       <p>You can start the application within the development environment, but you can’t do much with it:</p>
       <figure>
         <img src="before-seeding.png" alt="Before seeding">
@@ -72,7 +71,7 @@ $</code></pre>
 
       <h3 id="seeding">Seeding</h3>
       <p>The following example demonstrates seeding the environment. The output will display progressively as the process runs.</p>
-      <pre><code>$ bin/rails db:seed
+      <pre><samp>$ <kbd>bin/rails db:seed</kbd>
 == Setting up...
 Deleting Elasticsearch indexes...
 Cleaning MongoDB collections...
@@ -108,23 +107,23 @@ Indexing admin...
 Indexing help...
 
 Success!
-$</code></pre>
+$</samp></pre>
 
       <h3 id="after-seeding">After Seeding</h3>
       <p>After seeding, MongoDB contains a development database for the application</p>
-      <pre><code>$ mongo --eval &#39;db.getMongo().getDBNames()&#39;
+      <pre><samp>$ <kbd>mongo --eval &#39;db.getMongo().getDBNames()&#39;</kbd>
 MongoDB shell version: 3.2.5
 connecting to: test
 [&quot;boardgamz_development&quot;, &quot;local&quot;]
-$</code></pre>
+$</samp></pre>
       <p>that holds many collections</p>
-      <pre><code>$ mongo boardgamz_development --eval &quot;db.getCollectionNames().length&quot;
+      <pre><samp>$ <kbd>mongo boardgamz_development --eval &quot;db.getCollectionNames().length&quot;</kbd>
 MongoDB shell version: 3.2.5
 connecting to: boardgamz_development
 61
-$</code></pre>
+$</samp></pre>
       <p>some of which are listed below:</p>
-      <pre><code>$ mongo boardgamz_development --eval &quot;db.getCollectionNames().slice(0,20)&quot;
+      <pre><samp>$ <kbd>mongo boardgamz_development --eval &quot;db.getCollectionNames().slice(0,20)&quot;</kbd>
 MongoDB shell version: 3.2.5
 connecting to: boardgamz_development
 [
@@ -149,19 +148,19 @@ connecting to: boardgamz_development
   &quot;workarea_catalog_categories&quot;,
   &quot;workarea_catalog_product_placeholder_images&quot;
 ]
-$</code></pre>
+$</samp></pre>
       <p>Likewise, Elasticsearch contains multiple indexes for the application</p>
-      <pre><code>$ curl localhost:9200/_cat/indices?v
+      <pre><samp>$ <kbd>curl localhost:9200/_cat/indices?v</kbd>
 health status index uuid pri rep docs.count docs.deleted store.size pri.store.size
 yellow open boardgamz_development_en_storefront D38474KwRS6oYndzWtjnrQ 5 1 140 4 964.9kb 964.9kb
 yellow open boardgamz_development_en_help j5M7K9QrT1a109VIujukcg 5 1 52 0 1.2mb 1.2mb
 yellow open boardgamz_development_en_admin 3fTuI3raSjePJU1IJvmBTw 5 1 762 0 2mb 2mb
-$</code></pre>
+$</samp></pre>
       <p>which hold many documents:</p>
-      <pre><code>$ curl localhost:9200/_cat/count?v
+      <pre><samp>$ <kbd>curl localhost:9200/_cat/count?v</kbd>
 epoch timestamp count
 1511905005 21:36:45 954
-$</code></pre>
+$</samp></pre>
       <p>The upshot of this is a usable Storefront, complete with products, categories, content, navigation, and other data:</p>
       <figure>
         <img src="after-seeding.png" alt="After seeding">
@@ -193,21 +192,21 @@ $</code></pre>
       <h2 id="re-seeding">Re-Seeding</h2>
       <p>The seeds included with Core use some random data, so seeding is not idempotent.&nbsp;<sup><a href="#note-1" id="note-1-context">[1]</a></sup> However, re-seeding should produce data that is uniform—having the same general “shape”—each time.</p>
       <p>To demonstrate, use Mongoid to query the number of products and the first product in the Boardgamz development database:</p>
-<pre><code>$ bin/rails r &#39;puts Workarea::Catalog::Product.count&#39;
+<pre><samp>$ <kbd>bin/rails r &#39;puts Workarea::Catalog::Product.count&#39;</kbd>
 90
-$ bin/rails r &#39;puts Workarea::Catalog::Product.first.name&#39;
+$ <kbd>bin/rails r &#39;puts Workarea::Catalog::Product.first.name&#39;</kbd>
 Heavy Duty Aluminum Knife
-$</code></pre>
+$</samp></pre>
       <p>Now, re-seed. (Also capture the seeding output to a file and add it to the git index—this is for a future example.)</p>
-      <pre><code>$ bin/rails db:seed &gt; seeding_output
+      <pre><samp>$ <kbd>bin/rails db:seed &gt; seeding_output</kbd>
 $ git add seeding_output
-$</code></pre>
+$</samp></pre>
       <p>After seeding completes, query the products again. You end up with the same <em>number</em> of products, but the products themselves are different.</p>
-      <pre><code>$ bin/rails r &#39;puts Workarea::Catalog::Product.count&#39;
+      <pre><samp>$ <kbd>bin/rails r &#39;puts Workarea::Catalog::Product.count&#39;</kbd>
 90
-$ bin/rails r &#39;puts Workarea::Catalog::Product.first.name&#39;
+$ <kbd>bin/rails r &#39;puts Workarea::Catalog::Product.first.name&#39;</kbd>
 Aerodynamic Linen Keyboard
-$</code></pre>
+$</samp></pre>
       <p>As another example, the image below shows the Storefront after re-seeding. Comparing it to the Storefront image above, you can see the “Header Promo Body” is identical, while the navigation is similar but different:</p>
       <figure>
         <img src="after-re-seeding.png" alt="After re-seeding">
@@ -229,7 +228,7 @@ $</code></pre>
       </ul>
 
       <h2 id="extending-seeds">Extending Seeds</h2>
-      <p>As an application developer, you can define your own seeds. You can also <a href="decoration.html">decorate</a> and <a href="configuration.html">configure</a> existing seeds. However, these techniques depend on an understanding of how seeds are implemented, which I haven’t covered yet.</p>
+      <p>As an application developer, you can define your own seeds. You can also <a>decorate</a> and <a>configure</a> existing seeds. However, these techniques depend on an understanding of how seeds are implemented, which I haven’t covered yet.</p>
       <p>Therefore, let’s instead take a look at how your installed plugins affect your seeds. Plugins typically add <em>new</em> seeds, which support the other extensions applied within the plugin. For example, the blog plugin seeds blogs, entries, and comments; while the clothing and package products plugins seed additional products.</p>
       <p>To see this, add some plugins to the application, as shown in the following git patch:</p>
       <pre><code>diff --git a/Gemfile b/Gemfile
@@ -240,19 +239,19 @@ index 0efec88..b3f9095 100644
 
  source &#39;https://gems.workarea.com&#39; do
    gem &#39;workarea&#39;, &#39;3.1.5&#39;
-+ gem &#39;workarea-blog&#39;, &#39;3.1.1&#39;
-+ gem &#39;workarea-clothing&#39;, &#39;2.1.3&#39;
-+ gem &#39;workarea-gift_cards&#39;, &#39;3.2.1&#39;
-+ gem &#39;workarea-package_products&#39;, &#39;3.1.2&#39;
-+ gem &#39;workarea-reviews&#39;, &#39;2.1.0&#39;
-+ gem &#39;workarea-store_locator&#39;, &#39;4.0.0&#39;
-+ gem &#39;workarea-wish_lists&#39;, &#39;2.0.3&#39;
+<mark>+ gem &#39;workarea-blog&#39;, &#39;3.1.1&#39;</mark>
+<mark>+ gem &#39;workarea-clothing&#39;, &#39;2.1.3&#39;</mark>
+<mark>+ gem &#39;workarea-gift_cards&#39;, &#39;3.2.1&#39;</mark>
+<mark>+ gem &#39;workarea-package_products&#39;, &#39;3.1.2&#39;</mark>
+<mark>+ gem &#39;workarea-reviews&#39;, &#39;2.1.0&#39;</mark>
+<mark>+ gem &#39;workarea-store_locator&#39;, &#39;4.0.0&#39;</mark>
+<mark>+ gem &#39;workarea-wish_lists&#39;, &#39;2.0.3&#39;</mark>
  end</code></pre>
       <p>Bundle the app; then re-seed and capture the seeding output to the same file as above.</p>
-      <pre><code>$ bundle
-$ bin/rails db:seed &gt; seeding_output</code></pre>
+      <pre><samp>$ <kbd>bundle</kbd>
+$ <kbd>bin/rails db:seed &gt; seeding_output</kbd></samp></pre>
       <p>After seeding completes, diff the output file to see how the seeding output has changed after installing plugins:</p>
-      <pre><code>$ git diff seeding_output</code></pre>
+      <pre><samp>$ <kbd>git diff seeding_output</kbd></samp></pre>
       <p>You should see several additions:</p>
       <pre><code>diff --git a/seeding_output b/seeding_output
 index 1fc7ea7..7c4d768 100644
@@ -262,8 +261,8 @@ index 1fc7ea7..7c4d768 100644
  Adding assets...
  Adding categories...
  Adding products...
-+Adding package products...
-+Adding clothing products...
+<mark>+Adding package products...</mark>
+<mark>+Adding clothing products...</mark>
  Adding auxiliary pages...
  Adding browsing pages...
  Adding discounts...
@@ -271,23 +270,23 @@ index 1fc7ea7..7c4d768 100644
  Adding system content...
  Adding admin users...
  Adding customers...
-+Adding blogs...
-+Adding blog entries...
-+Adding blog comments...
+<mark>+Adding blogs...</mark>
+<mark>+Adding blog entries...</mark>
+<mark>+Adding blog comments...</mark>
  Adding orders...
  Adding inquiries...
  Adding help articles...
  Adding analytics...
-+Adding gift cards...
-+Adding reviews...
-+Adding store locations...
-+Adding wish lists...
+<mark>+Adding gift cards...</mark>
+<mark>+Adding reviews...</mark>
+<mark>+Adding store locations...</mark>
+<mark>+Adding wish lists...</mark>
 
  == Loading Elasticsearch data
  Indexing storefront...</code></pre>
       <p>Additionally, count the products again:</p>
-      <pre><code>$ bin/rails r &#39;puts Workarea::Catalog::Product.count&#39;
-103</code></pre>
+      <pre><samp>$ <kbd>bin/rails r &#39;puts Workarea::Catalog::Product.count&#39;</kbd>
+103</samp></pre>
       <p>If you compare the result to the same query above, you can see there are additional products in the database. These additional products include data to support the functionality of the clothing, package products, and gift cards plugins. To boot, the reviews plugin adds rating and review data to <em>all</em> products. You can see some of these new products and additional data in the following view of the Storefront:</p>
       <figure>
         <img src="seeds-from-plugins.png" alt="Seeds from plugins">

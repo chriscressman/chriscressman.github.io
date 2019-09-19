@@ -73,56 +73,53 @@
 
       <h2 id="modeling">Modeling</h2>
       <p>Consider the example of a user checking out who is currently browsing <code>/checkout/addresses</code>. Within the context of this web request in the Storefront, <code>current_checkout</code> provides an instance of <code>Workarea::Checkout</code>, initialized from <code>current_order</code> and (if available) <code>current_user</code>.</p>
-      <pre><code>current_checkout.class
+      <pre><samp>&gt; <kbd>current_checkout.class</kbd>
 =&gt; Workarea::Checkout
-
-current_checkout.order.present?
+&gt; <kbd>current_checkout.order.present?</kbd>
 =&gt; true
-
-current_checkout.user.present?
-=&gt; false</code></pre>
+&gt; <kbd>current_checkout.user.present?</kbd>
+=&gt; false</samp></pre>
       <p>The example above represents a <em>guest</em> checkout (no user), which is currently <em>incomplete</em>, meaning the order cannot be placed.</p>
-      <pre><code>current_checkout.complete?
-=&gt; false</code></pre>
+      <pre><samp>&gt; <kbd>current_checkout.complete?</kbd>
+=&gt; false</samp></pre>
       <p>Checkout is completed through a series of steps. Each of these steps is modeled by a class.</p>
-      <pre><code>puts current_checkout.steps
+      <pre><samp>&gt; <kbd>puts current_checkout.steps</kbd>
 Workarea::Checkout::Steps::Addresses
 Workarea::Checkout::Steps::Shipping
-Workarea::Checkout::Steps::Payment</code></pre>
+Workarea::Checkout::Steps::Payment</samp></pre>
       <p>As needed throughout checkout, a checkout step object is initialized. A checkout step object is always initialized with a checkout instance.</p>
-      <pre><code>addresses_step = current_checkout.steps.first.new(current_checkout)</code></pre>
+      <pre><samp>&gt; <kbd>addresses_step = current_checkout.steps.first.new(current_checkout)</kbd></samp></pre>
       <p>As the shopper progresses through checkout, each checkout request re-initializes the current checkout object and the object representing the current checkout step. Each step of checkout <em>updates</em> the checkout until the step is <em>complete</em>.</p>
       <p>Each checkout step model therefore responds to <code>#update</code> and <code>#complete?</code>. The <code>#update</code> method uses the given params to mutate and persist the underlying transactional models (i.e. order, shippings, payment). The <code>#complete?</code> method determines if those transactional models are in the necessary states to continue to the next step of checkout (or place the order).</p>
       <p>addresses step is incomplete</p>
-      <pre><code>addresses_step.complete?
-=&gt; false</code></pre>
+      <pre><samp>&gt; <kbd>addresses_step.complete?</kbd>
+=&gt; false</samp></pre>
       <p>collect params from the shopper and update the checkout</p>
-      <pre><code>address_params = {
-  first_name: &#39;Ben&#39;,
-  last_name: &#39;Crouse&#39;,
-  street: &#39;22 S 3rd St&#39;,
-  city: &#39;Philadelphia&#39;,
-  region: &#39;PA&#39;,
-  postal_code: &#39;19106&#39;,
-  country: &#39;US&#39;,
-  phone_number: &#39;2159251800&#39;
-}
-
-addresses_step.update(
-  email: &#39;bcrouse@workarea.com&#39;,
-  shipping_address: address_params,
-  billing_address: address_params
-)</code></pre>
+      <pre><samp>&gt; <kbd>address_params = {
+    first_name: &#39;Ben&#39;,
+    last_name: &#39;Crouse&#39;,
+    street: &#39;22 S 3rd St&#39;,
+    city: &#39;Philadelphia&#39;,
+    region: &#39;PA&#39;,
+    postal_code: &#39;19106&#39;,
+    country: &#39;US&#39;,
+    phone_number: &#39;2159251800&#39;
+  }</kbd>
+&gt; <kbd>addresses_step.update(
+    email: &#39;bcrouse@workarea.com&#39;,
+    shipping_address: address_params,
+    billing_address: address_params
+  )</kbd></samp></pre>
       <p>addresses step is now complete</p>
-      <pre><code>addresses_step.complete?
-=&gt; true</code></pre>
+      <pre><samp>&gt; <kbd>addresses_step.complete?</kbd>
+=&gt; true</samp></pre>
       <p>This process of updating a step until it is complete is repeated until all steps of checkout are complete. At that point, the checkout itself is considered complete, and the order can be placed.</p>
       <p>query the checkout status</p>
-      <pre><code>current_checkout.complete?
-=&gt; true</code></pre>
+      <pre><samp>&gt; <kbd>current_checkout.complete?</kbd>
+=&gt; true</samp></pre>
       <p>place the order</p>
-      <pre><code>current_checkout.place_order
-=&gt; true</code></pre>
+      <pre><samp>&gt; <kbd>current_checkout.place_order</kbd>
+=&gt; true</samp></pre>
       <p>The examples above illustrate the checkout process from the perspective of the checkout models. However, in practice, shoppers check out via a series of web requests in the Storefront. This flow is covered next.</p>
 
       <h2 id="flow">Flow</h2>
@@ -143,7 +140,8 @@ addresses_step.update(
 
       <h3 id="code">Code</h3>
       <p>Run the following command from your application/plugin root to list relevant code files for this step:</p>
-      <pre><code>echo $(bundle show workarea-storefront)/app/controllers/workarea/storefront/checkouts_controller.rb</code></pre>
+      <pre><samp>$ <kbd>echo $(bundle show workarea-storefront)/app/controllers/workarea/storefront/checkouts_controller.rb</kbd>
+$</samp></pre>
 
       <h2 id="step-1-addresses">Step 1: Addresses</h2>
       <p>The addresses step of checkout collects the shopper’s email address, shipping address, and billing address. Any or all of these may be pre-filled from data stored on the user. The shipping and billing addresses may be entered as new addresses or selected from a menu of saved addresses. The billing address may also be entered by choosing “Same as Shipping”, which is selected by default.</p>
@@ -181,7 +179,7 @@ addresses_step.update(
 
       <h3 id="code-1">Code</h3>
       <p>Run the following command from your application/plugin root to list relevant code files for this step:</p>
-      <pre><code>echo &quot;
+      <pre><samp>$ <kbd>echo &quot;
 $(bundle show workarea-core)/app/models/workarea/checkout/steps/addresses.rb
 $(bundle show workarea-core)/test/models/workarea/checkout/steps/addresses_test.rb
 $(bundle show workarea-storefront)/app/controllers/workarea/storefront/checkout/addresses_controller.rb
@@ -193,7 +191,8 @@ $(bundle show workarea-storefront)/app/assets/javascripts/workarea/storefront/te
 $(bundle show workarea-storefront)/app/assets/javascripts/workarea/storefront/templates/same_as_shipping_button_property.jst.ejs
 $(bundle show workarea-storefront)/app/views/workarea/storefront/checkouts/addresses.html.haml
 $(bundle show workarea-storefront)/app/assets/stylesheets/workarea/storefront/components/_checkout_addresses.scss
-&quot;</code></pre>
+&quot;</kbd>
+$</samp></pre>
 
       <h2 id="step-2-shipping">Step 2: Shipping</h2>
       <p>The shipping step of checkout collects the shopper’s choice of shipping service and, optionally, shipping instructions. A shipping service is always selected by default, but the shopper can change the shipping service if more than one is available. Changing the service asynchronously updates the UI to reflect the effects on order pricing. The shipping instructions field is a simple text field that is hidden by default.</p>
@@ -224,7 +223,7 @@ $(bundle show workarea-storefront)/app/assets/stylesheets/workarea/storefront/co
 
       <h3 id="code-2">Code</h3>
       <p>Run the following command from your application/plugin root to list relevant code files for this step:</p>
-      <pre><code>echo &quot;
+      <pre><samp>$ <kbd>echo &quot;
 $(bundle show workarea-core)/app/models/workarea/checkout/steps/shipping.rb
 $(bundle show workarea-core)/test/models/workarea/checkout/steps/shipping_test.rb
 $(bundle show workarea-core)/app/models/workarea/checkout/shipping_options.rb
@@ -234,7 +233,8 @@ $(bundle show workarea-storefront)/app/view_models/workarea/storefront/checkout/
 $(bundle show workarea-storefront)/app/assets/javascripts/workarea/storefront/modules/checkout_shipping_services.js
 $(bundle show workarea-storefront)/app/views/workarea/storefront/checkouts/shipping.html.haml
 $(bundle show workarea-storefront)/app/assets/stylesheets/workarea/storefront/components/_checkout_shipping.scss
-&quot;</code></pre>
+&quot;</kbd>
+$</samp></pre>
 
       <h2 id="step-3-payment-place-order">Step 3: Payment &amp; Place Order</h2>
       <p>The third and final step of checkout collects payment and then places the order after the checkout is considered complete. Payment may be the ID of a saved credit card, or it may be a new credit card (in which case the value of <code>:payment</code> is <code>'new_card'</code>, and the additional param <code>:credit_card</code> contains the credit card attributes; e.g. <code>:number</code>).</p>
@@ -261,14 +261,15 @@ $(bundle show workarea-storefront)/app/assets/stylesheets/workarea/storefront/co
         <li><code>SaveOrderMetrics#perform</code></li>
       </ul>
       <p>For convenience, run the following command from your application/plugin root to list the source files where the above methods are defined:</p>
-      <pre><code>echo &quot;
+      <pre><samp>$ <kbd>echo &quot;
 $(bundle show workarea-core)/app/models/workarea/order.rb
 $(bundle show workarea-core)/app/models/workarea/checkout.rb
 $(bundle show workarea-storefront)/app/controllers/workarea/storefront/checkout/place_order_controller.rb
 $(bundle show workarea-core)/app/workers/workarea/save_user_order_details.rb
 $(bundle show workarea-core)/app/workers/workarea/mark_discounts_as_redeemed.rb
 $(bundle show workarea-core)/app/workers/workarea/save_order_metrics.rb
-&quot;</code></pre>
+&quot;</kbd>
+$</samp></pre>
 
       <h3 id="routes-2">Routes</h3>
       <ul>
@@ -290,7 +291,7 @@ $(bundle show workarea-core)/app/workers/workarea/save_order_metrics.rb
 
       <h3 id="code-3">Code</h3>
       <p>Run the following command from your application/plugin root to list relevant code files for this step:</p>
-      <pre><code>echo &quot;
+      <pre><samp>$ <kbd>echo &quot;
 $(bundle show workarea-core)/app/models/workarea/checkout/steps/payment.rb
 $(bundle show workarea-core)/test/models/workarea/checkout/steps/payment_test.rb
 $(bundle show workarea-core)/app/models/workarea/checkout/credit_card_params.rb
@@ -301,7 +302,8 @@ $(bundle show workarea-storefront)/test/view_models/workarea/storefront/checkout
 $(bundle show workarea-storefront)/app/assets/javascripts/workarea/storefront/modules/checkout_primary_payments.js
 $(bundle show workarea-storefront)/app/views/workarea/storefront/checkouts/payment.html.haml
 $(bundle show workarea-storefront)/app/assets/stylesheets/workarea/storefront/components/_checkout_payment.scss
-&quot;</code></pre>
+&quot;</kbd>
+$</samp></pre>
 
       <h2 id="placed-order">Placed Order</h2>
       <p>After the order is placed, the shopper is redirected to a view of the placed order. If the shopper is an administrator with <code>:order</code> permissions, they are redirected to the placed order in the Admin. Otherwise, the shopper is redirected to the <em>checkout confirmation</em>: a Storefront view of the placed order.</p>
@@ -319,16 +321,17 @@ $(bundle show workarea-storefront)/app/assets/stylesheets/workarea/storefront/co
 
       <h3 id="code-4">Code</h3>
       <p>Run the following command from your application/plugin root to list relevant code files for the Storefront checkout confirmation page:</p>
-      <pre><code>echo &quot;
+      <pre><samp>$ <kbd>echo &quot;
 $(bundle show workarea-storefront)/app/controllers/workarea/storefront/checkout/place_order_controller.rb
 $(bundle show workarea-storefront)/app/view_models/workarea/storefront/checkout/confirmation_view_model.rb
 $(bundle show workarea-storefront)/app/views/workarea/storefront/checkouts/confirmation.html.haml
-&quot;</code></pre>
+&quot;</kbd>
+$</samp></pre>
 
       <h2 id="shared-implementation">Shared Implementation</h2>
       <p>The steps of checkout have a consistent “chrome” and therefore share some of their implementation. This includes a checkout layout, a progress indicator, and the checkout summary which displays as an aside throughout checkout.</p>
       <p>Run the following command from your application/plugin root to list the source files for the checkout shared implementation.</p>
-      <pre><code>echo &quot;
+      <pre><samp>$ <kbd>echo &quot;
 $(bundle show workarea-core)/app/models/workarea/checkout.rb
 $(bundle show workarea-core)/test/models/workarea/checkout_test.rb
 $(bundle show workarea-core)/app/models/workarea/checkout/auto_complete.rb
@@ -353,13 +356,14 @@ $(bundle show workarea-storefront)/test/integration/workarea/storefront/checkout
 $(bundle show workarea-storefront)/test/integration/workarea/storefront/current_checkout_integration_test.rb
 $(bundle show workarea-storefront)/test/system/workarea/storefront/guest_checkout_system_test.rb
 $(bundle show workarea-storefront)/test/system/workarea/storefront/logged_in_checkout_system_test.rb
-&quot;</code></pre>
+&quot;</kbd>
+$</samp></pre>
 
       <h2 id="extension">Extension</h2>
       <p>You can extend checkout, either to change an existing step or to add a new step (or otherwise change the steps/flow).</p>
 
       <h3 id="change-an-existing-step">Change an Existing Step</h3>
-      <p>To change an existing step, <a href="decoration.html">decorate</a> the models and/or extend the UI code using the appropriate <a href="extension.html">extension</a> techniques. If decorating the model, extend <code>#update</code> to change which params are expected for an update, and extend <code>#complete?</code> to change the conditions for step completion. For UI changes, refer to the listings of source files in the step-specific sections above.</p>
+      <p>To change an existing step, <a>decorate</a> the models and/or extend the UI code using the appropriate <a>extension</a> techniques. If decorating the model, extend <code>#update</code> to change which params are expected for an update, and extend <code>#complete?</code> to change the conditions for step completion. For UI changes, refer to the listings of source files in the step-specific sections above.</p>
 
       <h3 id="add-a-step">Add a Step</h3>
       <p>You may need to add a step (or, in some unlikely scenarios remove or re-order steps). To add a step, complete the following:</p>
