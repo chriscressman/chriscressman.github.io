@@ -43,40 +43,40 @@ $</samp></pre>
 
       <h3 id="examples">Examples</h3>
       <p>As an example, the “offline” policy ensures a shopper can view the item on the website but cannot purchase it (which must be done over the phone or by some other means explained on the screen):</p>
-      <pre><code># &lt;app or plugin root&gt;/app/models/workarea/inventory/policies/offline.rb
+      <pre><code><span class="comment"># <var>app_or_plugin_root</var>/app/models/workarea/inventory/policies/offline.rb</span>
 
-module Workarea
-  module Inventory
-    module Policies
-      class Offline &lt; Base
-        def displayable?
+module <b>Workarea</b>
+  module <b>Inventory</b>
+    module <b>Policies</b>
+      class <b>Offline</b> &lt; <b>Base</b>
+        def <b>displayable?</b>
           true
         end
 
-        def available_to_sell
+        def <b>available_to_sell</b>
           0
         end
 
-        def purchase(quantity)
-          # noop
+        def <b>purchase(</b>quantity<b>)</b>
+          <span class="comment"># noop</span>
         end
       end
     end
   end
 end</code></pre>
       <p>The “in store only” policy relies on other extensions that exist in the application or plugin:</p>
-      <pre><code># &lt;app or plugin root&gt;/app/models/workarea/inventory/policies/in_store_only.rb
+      <pre><code><span class="comment"># <var>app_or_plugin_root</var>/app/models/workarea/inventory/policies/in_store_only.rb</span>
 
-module Workarea
-  module Inventory
-    module Policies
-      class InStoreOnly &lt; Standard
-        def available_to_sell
+module <b>Workarea</b>
+  module <b>Inventory</b>
+    module <b>Policies</b>
+      class <b>InStoreOnly</b> &lt; <b>Standard</b>
+        def <b>available_to_sell</b>
           sku.available_in_store
         end
 
-        def purchase(quantity)
-          # noop
+        def <b>purchase(</b>quantity<b>)</b>
+          <span class="comment"># noop</span>
         end
       end
     end
@@ -85,7 +85,7 @@ end</code></pre>
 
       <h2 id="configure-available-policies">Configure Available Policies</h2>
       <p>Add your new policy to the configurable collection of available inventory policies:</p>
-      <pre><code># &lt;app or plugin root&gt;/config/initializers/inventory_policies.rb
+      <pre><code><span class="comment"># <var>app_or_plugin_root</var>/config/initializers/inventory_policies.rb</span>
 
 Workarea.config.inventory_policies &lt;&lt; &#39;Workarea::Inventory::Policies::Offline&#39;</code></pre>
       <p>You can also remove or sort the policies using the methods of <a>SwappableList</a>. When saving an inventory policy, its policy is validated to ensure it is a member of this collection. And this is the list of policies that is presented for selection within the inventory SKU administration screens. The first policy in this collection is the default policy for new inventory SKUs.</p>
