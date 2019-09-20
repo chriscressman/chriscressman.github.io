@@ -2,15 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+    <meta name="viewport" content="width=864">
     <title>Checkout</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Fira+Sans&display=swap">
     <link rel="stylesheet" href="document.css">
   </head>
-
   <body>
-
-    <div class="medium-wrapper">
+    <main>
 
       <h1 id="checkout">Checkout</h1>
       <p>Checkout is the process that completes and records a transaction (a sale) between a shopper and the retailer. Checkout gets the <a href="orders.html">order</a>, <a href="shipping.html">shippings</a>, and payment into the states necessary to place the order.</p>
@@ -22,43 +20,18 @@
           <li><a href="#flow">Flow</a></li>
           <li>
             <a href="#entry-point">Entry Point</a>
-            <ul>
-              <li><a href="#code">Code</a></li>
-            </ul>
           </li>
           <li>
             <a href="#step-1-addresses">Step 1: Addresses</a>
-            <ul>
-              <li><a href="#routes">Routes</a></li>
-              <li><a href="#update-params"><code>update</code> Params</a></li>
-              <li><a href="#complete-conditions"><code>complete?</code> Conditions</a></li>
-              <li><a href="#code-1">Code</a></li>
-            </ul>
           </li>
           <li>
             <a href="#step-2-shipping">Step 2: Shipping</a>
-            <ul>
-              <li><a href="#routes-1">Routes</a></li>
-              <li><a href="#update-params-1"><code>update</code> Params</a></li>
-              <li><a href="#complete-conditions-1"><code>complete?</code> Conditions</a></li>
-              <li><a href="#code-2">Code</a></li>
-            </ul>
           </li>
           <li>
             <a href="#step-3-payment-place-order">Step 3: Payment &amp; Place Order</a>
-            <ul>
-              <li><a href="#routes-2">Routes</a></li>
-              <li><a href="#update-params-2"><code>update</code> Params</a></li>
-              <li><a href="#complete-conditions-2"><code>complete?</code> Conditions</a></li>
-              <li><a href="#code-3">Code</a></li>
-            </ul>
           </li>
           <li>
             <a href="#placed-order">Placed Order</a>
-            <ul>
-              <li><a href="#routes-3">Routes</a></li>
-              <li><a href="#code-4">Code</a></li>
-            </ul>
           </li>
           <li><a href="#shared-implementation">Shared Implementation</a></li>
           <li>
@@ -148,13 +121,11 @@ $</samp></pre>
       <p>Addresses step, guest checkout:</p>
       <figure>
         <img src="checkout-addresses-guest.png" alt="Checkout addresses, guest checkout">
-        <figcaption>Checkout addresses, guest checkout</figcaption>
       </figure>
       <p>( The screenshot above includes shipping to multiple addresses and address autocomplete. These features are provided by plugins and are not covered in this doc. )</p>
       <p>Here is the addresses step as a returning user:</p>
       <figure>
         <img src="checkout-addresses-user.png" alt="Checkout addresses, returning user">
-        <figcaption>Checkout addresses, returning user</figcaption>
       </figure>
 
       <h3 id="routes">Routes</h3>
@@ -199,7 +170,6 @@ $</samp></pre>
       <p>The shipping step:</p>
       <figure>
         <img src="checkout-shipping.png" alt="Checkout shipping">
-        <figcaption>Checkout shipping</figcaption>
       </figure>
       <p>( The screenshot above includes shipping to multiple addresses, gift message, and gift wrapping. These features are provided by plugins and are not covered in this doc. )</p>
 
@@ -241,14 +211,12 @@ $</samp></pre>
       <p>The payment step, guest checkout:</p>
       <figure>
         <img src="checkout-payment-guest.png" alt="Checkout payment, guest">
-        <figcaption>Checkout payment, guest</figcaption>
       </figure>
       <p>( The “Enter a Promo Code” button, shown above, reveals an additional promo code form, which is separate from the checkout form. The form submits to <code>PATCH /cart/add_promo_code</code> and then returns the shopper to this step of checkout. Therefore, although this form appears within the checkout UI, it is not part of checkout from a modeling and flow standpoint and isn’t included in the discussions above.</p>
       <p>The screenshot above also includes quoting, gift cards, and shipping to multiple addresses. These features are provided by plugins and are not covered in this doc. )</p>
       <p>Here is the payment step as a returning user:</p>
       <figure>
         <img src="checkout-payment-user.png" alt="Checkout payment, returning user">
-        <figcaption>Checkout payment, returning user</figcaption>
       </figure>
       <p>Placing the order has various effects; some inline with the original web request, others deferred as background jobs. Investigate the following Ruby API calls to see all the effects:</p>
       <ul>
@@ -309,7 +277,6 @@ $</samp></pre>
       <p>After the order is placed, the shopper is redirected to a view of the placed order. If the shopper is an administrator with <code>:order</code> permissions, they are redirected to the placed order in the Admin. Otherwise, the shopper is redirected to the <em>checkout confirmation</em>: a Storefront view of the placed order.</p>
       <figure>
         <img src="checkout-confirmation.png" alt="Checkout confirmation">
-        <figcaption>Checkout confirmation</figcaption>
       </figure>
       <p>If the checkout was a guest checkout, the checkout confirmation page includes a form which allows the shopper to create a user account. If the shopper creates their account, a background job copies details from the checkout (e.g. addresses, payment) to their user account.</p>
 
@@ -391,7 +358,6 @@ $</samp></pre>
         <li><code>Storefront::Checkout::PlaceOrderController#finished_checkout_destination</code></li>
       </ul>
       <p>Finally, create any additional UI code that is necessary to complete your step (e.g. view, view model). Refer to the lists of code in the step-specific sections above as reference.</p>
-
-    </div>
+    </main>
   </body>
 </html>

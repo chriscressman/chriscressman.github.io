@@ -2,14 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+    <meta name="viewport" content="width=864">
     <title>Seeds</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Fira+Sans&display=swap">
     <link rel="stylesheet" href="document.css">
   </head>
-
   <body>
-    <div class="medium-wrapper">
+    <main>
 
       <h1 id="seeds">Seeds</h1>
       <p><dfn>Seeds</dfn> are default data appropriate for developing, testing, or otherwise using a Workarea application, particularly in a development environment. <dfn>Seeding</dfn> is the process of writing the seeds within a particular environment.</p>
@@ -55,7 +54,6 @@ $</samp></pre>
       <p>You can start the application within the development environment, but you can’t do much with it:</p>
       <figure>
         <img src="before-seeding.png" alt="Before seeding">
-        <figcaption>Before seeding</figcaption>
       </figure>
       <p>There is no navigation and nothing to search for. There are no products, categories, or content to browse. The Admin is inaccessible because there are no users who can authenticate as administrators.</p>
       <p>To use this application, you need data. If you’re new to Workarea, you may be surprised how much data is required for a typical flow, such as the process of adding some products to the cart and checking out. This path requires at least a few model instances from each of the following business domains:</p>
@@ -164,30 +162,30 @@ $</samp></pre>
       <p>The upshot of this is a usable Storefront, complete with products, categories, content, navigation, and other data:</p>
       <figure>
         <img src="after-seeding.png" alt="After seeding">
-        <figcaption>After seeding</figcaption>
       </figure>
 
       <h3 id="admin-access">Admin Access</h3>
       <p>Seeding also provides access to the Admin, which is displaying order and analytics data that was also seeded:</p>
       <figure>
         <img src="seeded-admin.png" alt="Seeded Admin">
-        <figcaption>Seeded Admin</figcaption>
       </figure>
       <p>In a development environment, the following credentials provide super admin privileges (assuming you haven’t customized your admin user seeds):</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Email</th>
-            <th>user@workarea.com</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Password</td>
-            <td>W3bl1nc!</td>
-          </tr>
-        </tbody>
-      </table>
+      <figure>
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Password</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>user@workarea.com</td>
+              <td>W3bl1nc!</td>
+            </tr>
+          </tbody>
+        </table>
+      </figure>
 
       <h2 id="re-seeding">Re-Seeding</h2>
       <p>The seeds included with Core use some random data, so seeding is not idempotent.&nbsp;<sup><a href="#note-1" id="note-1-context">[1]</a></sup> However, re-seeding should produce data that is uniform—having the same general “shape”—each time.</p>
@@ -210,7 +208,6 @@ $</samp></pre>
       <p>As another example, the image below shows the Storefront after re-seeding. Comparing it to the Storefront image above, you can see the “Header Promo Body” is identical, while the navigation is similar but different:</p>
       <figure>
         <img src="after-re-seeding.png" alt="After re-seeding">
-        <figcaption>After re-seeding</figcaption>
       </figure>
       <p>The uniformity of seeds makes them valuable for the following additional use cases:</p>
       <ul>
@@ -290,7 +287,6 @@ index 1fc7ea7..7c4d768 100644
       <p>If you compare the result to the same query above, you can see there are additional products in the database. These additional products include data to support the functionality of the clothing, package products, and gift cards plugins. To boot, the reviews plugin adds rating and review data to <em>all</em> products. You can see some of these new products and additional data in the following view of the Storefront:</p>
       <figure>
         <img src="seeds-from-plugins.png" alt="Seeds from plugins">
-        <figcaption>Seeds from plugins</figcaption>
       </figure>
 
       <h2 id="summary">Summary</h2>
@@ -304,7 +300,6 @@ index 1fc7ea7..7c4d768 100644
 
       <h2 id="notes">Notes</h2>
       <p><a href="#note-1-context" id="note-1">[1]</a> Of course, since seeds are extensible, you can write your own seeds to be idempotent if you so desire.</p>
-
-    </div>
+    </main>
   </body>
 </html>

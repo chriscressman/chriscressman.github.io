@@ -2,15 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+    <meta name="viewport" content="width=864">
     <title>Inventory</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Fira+Sans&display=swap">
     <link rel="stylesheet" href="document.css">
   </head>
-
   <body>
-
-    <div class="medium-wrapper">
+    <main>
 
       <h1 id="inventory">Inventory</h1>
       <p>Workarea includes an inventory subsystem providing inventory management and automated merchandising based on inventory levels and policies. This system is fully functional as it is, but developers may need to extend or operate the system to accomplish the following:</p>
@@ -66,36 +64,38 @@
 
       <h3 id="administrable-fields-policies">Administrable Fields &amp; Policies</h3>
       <p>The following table describes the <em>administrable fields</em> of each inventory SKU:</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Field</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>:available</code></td>
-            <td>The integer count of units that are available except when reserved; defaults to <code>0</code></td>
-          </tr>
-          <tr>
-            <td><code>:backordered</code></td>
-            <td>The integer count of units that are available when backorder is allowed, except when reserved, defaults to <code>0</code></td>
-          </tr>
-          <tr>
-            <td><code>:reserve</code></td>
-            <td>The integer count of units to reserve from the collective pool of <code>available</code> and <code>backordered</code>; defaults to <code>0</code></td>
-          </tr>
-          <tr>
-            <td><code>:backordered_until</code></td>
-            <td>The <code>Time</code> at which backordered units are expected to move to available</td>
-          </tr>
-          <tr>
-            <td><code>:policy</code></td>
-            <td>A string identifying one of the policies enumerated in <code>Workarea.config.inventory_policies</code>; defaults to the first policy in that configurable collection</td>
-          </tr>
-        </tbody>
-      </table>
+      <figure>
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>:available</code></td>
+              <td>The integer count of units that are available except when reserved; defaults to <code>0</code></td>
+            </tr>
+            <tr>
+              <td><code>:backordered</code></td>
+              <td>The integer count of units that are available when backorder is allowed, except when reserved, defaults to <code>0</code></td>
+            </tr>
+            <tr>
+              <td><code>:reserve</code></td>
+              <td>The integer count of units to reserve from the collective pool of <code>available</code> and <code>backordered</code>; defaults to <code>0</code></td>
+            </tr>
+            <tr>
+              <td><code>:backordered_until</code></td>
+              <td>The <code>Time</code> at which backordered units are expected to move to available</td>
+            </tr>
+            <tr>
+              <td><code>:policy</code></td>
+              <td>A string identifying one of the policies enumerated in <code>Workarea.config.inventory_policies</code>; defaults to the first policy in that configurable collection</td>
+            </tr>
+          </tbody>
+        </table>
+      </figure>
       <p>The most important of these fields are the integer values <code>:available</code>, <code>:backordered</code> and <code>reserve</code>, and the <code>:policy</code>, which Workarea uses collectively to derive various inventory states, as explained in the following sections.</p>
 
       <h2 id="presenting-products-carts">Presenting Products &amp; Carts</h2>
@@ -110,32 +110,34 @@ Workarea::Inventory::Policies::Standard
 Workarea::Inventory::Policies::DisplayableWhenOutOfStock
 Workarea::Inventory::Policies::AllowBackorder</samp></pre>
       <p>For each inventory SKU, workarea uses the SKU’s policy and other values of its administrable fields to derive the following inventory SKU states:</p>
-      <table>
-        <thead>
-          <tr>
-            <th>State</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>available_to_sell</code></td>
-            <td>The computed integer count of available units, derived from <code>:available</code>, <code>:backordered</code>, and <code>reserve</code> by the policy</td>
-          </tr>
-          <tr>
-            <td><code>purchasable?(quantity)</code></td>
-            <td>Whether the item is purchasable, determined by comparing the given quantity to <code>available_to_sell</code>; quantity defaults to <code>1</code></td>
-          </tr>
-          <tr>
-            <td><code>displayable?</code></td>
-            <td>Whether the item is displayable, as determined by the policy</td>
-          </tr>
-          <tr>
-            <td><code>backordered?</code></td>
-            <td>Whether the item is backordered, which can be true only when the policy is <code>'allow_backorder'</code></td>
-          </tr>
-        </tbody>
-      </table>
+      <figure>
+        <table>
+          <thead>
+            <tr>
+              <th>State</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>available_to_sell</code></td>
+              <td>The computed integer count of available units, derived from <code>:available</code>, <code>:backordered</code>, and <code>reserve</code> by the policy</td>
+            </tr>
+            <tr>
+              <td><code>purchasable?(quantity)</code></td>
+              <td>Whether the item is purchasable, determined by comparing the given quantity to <code>available_to_sell</code>; quantity defaults to <code>1</code></td>
+            </tr>
+            <tr>
+              <td><code>displayable?</code></td>
+              <td>Whether the item is displayable, as determined by the policy</td>
+            </tr>
+            <tr>
+              <td><code>backordered?</code></td>
+              <td>Whether the item is backordered, which can be true only when the policy is <code>'allow_backorder'</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </figure>
       <p>The following sections explain each inventory policy and its effects on these inventory SKU states.</p>
 
       <h4 id="standard">Standard</h4>
@@ -143,12 +145,12 @@ Workarea::Inventory::Policies::AllowBackorder</samp></pre>
       <p>Create an inventory SKU:</p>
       <pre><samp>&gt; <kbd>sku = &#39;WIZRDRPG-5ED&#39;</kbd>
 &gt; <kbd>inventory_sku = Workarea::Inventory::Sku.create(
-                    _id: sku,
-                    policy: &#39;standard&#39;,
-                    available: 0,
-                    backordered: 3,
-                    reserve: 1
-                  )</kbd></samp></pre>
+                  _id: sku,
+                  policy: &#39;standard&#39;,
+                  available: 0,
+                  backordered: 3,
+                  reserve: 1
+                )</kbd></samp></pre>
       <p>Review the administrable values:</p>
       <pre><samp>&gt; <kbd>inventory_sku.available</kbd>
 =&gt; 0
@@ -282,32 +284,34 @@ Workarea::Inventory::Policies::AllowBackorder</samp></pre>
       <p>To maintain accurate inventory within its boundaries, Workarea must <em>purchase</em> the inventory for an order, according to the inventory policy of each SKU.</p>
       <p>Regardless of policy, the value of <code>:purchased</code> on the inventory SKU is incremented by the quantity purchased. This value tracks the number of units purchased since the creation of the inventory SKU. Additionally, the current computed value from <code>#available_to_sell</code> is persisted to the field <code>:sellable</code>, which is used for presenting a low inventory report.</p>
       <p>Depending on policy, units are <em>captured</em> from <code>:available</code> and <code>:backordered</code>, as described in the following table:</p>
-      <table>
-        <thead>
-          <tr class="header">
-            <th>Policy</th>
-            <th>Capture Logic</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>'standard'</code></td>
-            <td>Purchased quantity is decremented from <code>:available</code></td>
-          </tr>
-          <tr>
-            <td><code>'displayable_when_out_of_stock'</code></td>
-            <td>Same as <code>'standard'</code>, from which it inherits</td>
-          </tr>
-          <tr>
-            <td><code>'allow_backorder'</code></td>
-            <td>Purchased quantity is decremented first from <code>:available</code> (until exhausted) and then from <code>:backordered</code></td>
-          </tr>
-          <tr>
-            <td><code>'ignore'</code></td>
-            <td>Nothing is captured</td>
-          </tr>
-        </tbody>
-      </table>
+      <figure>
+        <table>
+          <thead>
+            <tr class="header">
+              <th>Policy</th>
+              <th>Capture Logic</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>'standard'</code></td>
+              <td>Purchased quantity is decremented from <code>:available</code></td>
+            </tr>
+            <tr>
+              <td><code>'displayable_when_out_of_stock'</code></td>
+              <td>Same as <code>'standard'</code>, from which it inherits</td>
+            </tr>
+            <tr>
+              <td><code>'allow_backorder'</code></td>
+              <td>Purchased quantity is decremented first from <code>:available</code> (until exhausted) and then from <code>:backordered</code></td>
+            </tr>
+            <tr>
+              <td><code>'ignore'</code></td>
+              <td>Nothing is captured</td>
+            </tr>
+          </tbody>
+        </table>
+      </figure>
       <p>If a shopper later cancels the order, Workarea must <em>release</em> the inventory, which is the reverse of a capture and relies on the record of the purchase stored in the inventory transaction.</p>
 
       <h3 id="inventory-transactions">Inventory Transactions</h3>
@@ -316,7 +320,6 @@ Workarea::Inventory::Policies::AllowBackorder</samp></pre>
 
       <h3 id="reports-insights">Reports &amp; Insights</h3>
       <p>Because Workarea is modifying inventory counts, it must provide a means for retailers to stay informed of current inventory levels. In addition to the inventory SKU administration screens, Workarea provides two reports directly relevant to those responsible for restocking inventory: “Low Inventory” and “Sales by Product”. A retailer can view and export these reports in the Admin. Insights based on these reports also appear within several Admin dashboards. Relying on these insights, retailers can effectively manage inventory levels, completing the inventory cycle explained in this document.</p>
-
-    </div>
+    </main>
   </body>
 </html>
