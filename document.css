@@ -76,7 +76,7 @@ h1 {
 h2 {
   margin: 36px 0 0;
   font-size: 36px;
-  line-height: 36px;
+  line-height: 48px;
   font-weight: bold;
 }
 
@@ -156,6 +156,11 @@ td + td {
 
 th {
   font-weight: bold;
+}
+
+aside {
+  font-size: 14px;
+  font-style: italic;
 }
 
 nav {

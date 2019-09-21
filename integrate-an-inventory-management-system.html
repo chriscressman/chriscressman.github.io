@@ -36,8 +36,7 @@
       <h2 id="report-workareas-inventory-transactions">Report Workarea’s Inventory Transactions</h2>
       <p>Workarea also makes its own changes to the inventory SKU values <code>:available</code> and <code>:backordered</code> when shoppers place and cancel orders. ( See <a href="inventory.html#purchasing-capturing-releasing-inventory">Inventory: Purchasing, Capturing &amp; Releasing Inventory</a>. ) You therefore may need to report these changes to the system you are integrating. ( This may not be necessary if the external system manages these changes, perhaps during fulfillment rather than at the point of sale. )</p>
       <p>Whenever Workarea captures and frees inventory in this manner, it records details of the changes as an <code>Inventory::Transaction</code> specific to the order. Each inventory transaction is related to an order via its <code>:order_id</code> field. Whenever Workarea performs a capture, rollbak, or restock operation on inventory, its affects are recorded on the inventory transaction document, and its <code>:updated_at</code> timestamp is refreshed. Additionally, you can query whether a transaction’s inventory has been captured by examining its boolean <code>:captured</code> field.</p>
-      <p>Inventory transactions are indexed by <code>:updated_at</code> and <code>:captured</code>, facilitating queries for “captured transactions updated after <em>date</em>”:</p>
-      <p>find inventory transactions updated after Midnight</p>
+      <p>Inventory transactions are indexed by <code>:updated_at</code> and <code>:captured</code>, facilitating queries for “captured transactions updated after <em>date</em>” (e.g. transactions updated after Midnight):</p>
       <pre><code>Workarea::Inventory::Transaction.where(
   :updated_at.gt =&gt; Time.current.beginning_of_day,
   captured: true

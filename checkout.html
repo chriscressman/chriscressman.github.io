@@ -64,10 +64,10 @@ Workarea::Checkout::Steps::Payment</samp></pre>
       <pre><samp>&gt; <kbd>addresses_step = current_checkout.steps.first.new(current_checkout)</kbd></samp></pre>
       <p>As the shopper progresses through checkout, each checkout request re-initializes the current checkout object and the object representing the current checkout step. Each step of checkout <em>updates</em> the checkout until the step is <em>complete</em>.</p>
       <p>Each checkout step model therefore responds to <code>#update</code> and <code>#complete?</code>. The <code>#update</code> method uses the given params to mutate and persist the underlying transactional models (i.e. order, shippings, payment). The <code>#complete?</code> method determines if those transactional models are in the necessary states to continue to the next step of checkout (or place the order).</p>
-      <p>addresses step is incomplete</p>
+      <p>Here, the addresses step is incomplete:</p>
       <pre><samp>&gt; <kbd>addresses_step.complete?</kbd>
 =&gt; false</samp></pre>
-      <p>collect params from the shopper and update the checkout</p>
+      <p>To complete the step, collect params from the shopper and update the checkout:</p>
       <pre><samp>&gt; <kbd>address_params = {
     first_name: &#39;Ben&#39;,
     last_name: &#39;Crouse&#39;,
@@ -83,14 +83,14 @@ Workarea::Checkout::Steps::Payment</samp></pre>
     shipping_address: address_params,
     billing_address: address_params
   )</kbd></samp></pre>
-      <p>addresses step is now complete</p>
+      <p>The addresses step is now complete:</p>
       <pre><samp>&gt; <kbd>addresses_step.complete?</kbd>
 =&gt; true</samp></pre>
       <p>This process of updating a step until it is complete is repeated until all steps of checkout are complete. At that point, the checkout itself is considered complete, and the order can be placed.</p>
-      <p>query the checkout status</p>
+      <p>Query the checkout status:</p>
       <pre><samp>&gt; <kbd>current_checkout.complete?</kbd>
 =&gt; true</samp></pre>
-      <p>place the order</p>
+      <p>Place the order:</p>
       <pre><samp>&gt; <kbd>current_checkout.place_order</kbd>
 =&gt; true</samp></pre>
       <p>The examples above illustrate the checkout process from the perspective of the checkout models. However, in practice, shoppers check out via a series of web requests in the Storefront. This flow is covered next.</p>
@@ -120,12 +120,18 @@ $</samp></pre>
       <p>The addresses step of checkout collects the shopper’s email address, shipping address, and billing address. Any or all of these may be pre-filled from data stored on the user. The shipping and billing addresses may be entered as new addresses or selected from a menu of saved addresses. The billing address may also be entered by choosing “Same as Shipping”, which is selected by default.</p>
       <p>Addresses step, guest checkout:</p>
       <figure>
-        <img src="checkout-addresses-guest.png" alt="Checkout addresses, guest checkout">
+        <a href="checkout-addresses-guest.png">
+          <img src="checkout-addresses-guest.png" alt="Checkout addresses, guest checkout">
+        </a>
       </figure>
-      <p>( The screenshot above includes shipping to multiple addresses and address autocomplete. These features are provided by plugins and are not covered in this doc. )</p>
+      <aside>
+        <p>The screenshot above includes shipping to multiple addresses and address autocomplete. These features are provided by plugins and are not covered in this doc.</p>
+      </aside>
       <p>Here is the addresses step as a returning user:</p>
       <figure>
-        <img src="checkout-addresses-user.png" alt="Checkout addresses, returning user">
+        <a href="checkout-addresses-user.png">
+          <img src="checkout-addresses-user.png" alt="Checkout addresses, returning user">
+        </a>
       </figure>
 
       <h3 id="routes">Routes</h3>
@@ -169,9 +175,13 @@ $</samp></pre>
       <p>The shipping step of checkout collects the shopper’s choice of shipping service and, optionally, shipping instructions. A shipping service is always selected by default, but the shopper can change the shipping service if more than one is available. Changing the service asynchronously updates the UI to reflect the effects on order pricing. The shipping instructions field is a simple text field that is hidden by default.</p>
       <p>The shipping step:</p>
       <figure>
-        <img src="checkout-shipping.png" alt="Checkout shipping">
+        <a href="checkout-shipping.png">
+          <img src="checkout-shipping.png" alt="Checkout shipping">
+        </a>
       </figure>
-      <p>( The screenshot above includes shipping to multiple addresses, gift message, and gift wrapping. These features are provided by plugins and are not covered in this doc. )</p>
+      <aside>
+        <p>The screenshot above includes shipping to multiple addresses, gift message, and gift wrapping. These features are provided by plugins and are not covered in this doc.</p>
+      </aside>
 
       <h3 id="routes-1">Routes</h3>
       <ul>
@@ -210,13 +220,19 @@ $</samp></pre>
       <p>The third and final step of checkout collects payment and then places the order after the checkout is considered complete. Payment may be the ID of a saved credit card, or it may be a new credit card (in which case the value of <code>:payment</code> is <code>'new_card'</code>, and the additional param <code>:credit_card</code> contains the credit card attributes; e.g. <code>:number</code>).</p>
       <p>The payment step, guest checkout:</p>
       <figure>
-        <img src="checkout-payment-guest.png" alt="Checkout payment, guest">
+        <a href="checkout-payment-guest.png">
+          <img src="checkout-payment-guest.png" alt="Checkout payment, guest">
+        </a>
       </figure>
-      <p>( The “Enter a Promo Code” button, shown above, reveals an additional promo code form, which is separate from the checkout form. The form submits to <code>PATCH /cart/add_promo_code</code> and then returns the shopper to this step of checkout. Therefore, although this form appears within the checkout UI, it is not part of checkout from a modeling and flow standpoint and isn’t included in the discussions above.</p>
-      <p>The screenshot above also includes quoting, gift cards, and shipping to multiple addresses. These features are provided by plugins and are not covered in this doc. )</p>
+      <aside>
+        <p>The “Enter a Promo Code” button, shown above, reveals an additional promo code form, which is separate from the checkout form. The form submits to <code>PATCH /cart/add_promo_code</code> and then returns the shopper to this step of checkout. Therefore, although this form appears within the checkout UI, it is not part of checkout from a modeling and flow standpoint and isn’t included in the discussions above.</p>
+        <p>The screenshot above also includes quoting, gift cards, and shipping to multiple addresses. These features are provided by plugins and are not covered in this doc.</p>
+      </aside>
       <p>Here is the payment step as a returning user:</p>
       <figure>
-        <img src="checkout-payment-user.png" alt="Checkout payment, returning user">
+        <a href="checkout-payment-user.png">
+          <img src="checkout-payment-user.png" alt="Checkout payment, returning user">
+        </a>
       </figure>
       <p>Placing the order has various effects; some inline with the original web request, others deferred as background jobs. Investigate the following Ruby API calls to see all the effects:</p>
       <ul>
@@ -276,7 +292,9 @@ $</samp></pre>
       <h2 id="placed-order">Placed Order</h2>
       <p>After the order is placed, the shopper is redirected to a view of the placed order. If the shopper is an administrator with <code>:order</code> permissions, they are redirected to the placed order in the Admin. Otherwise, the shopper is redirected to the <em>checkout confirmation</em>: a Storefront view of the placed order.</p>
       <figure>
-        <img src="checkout-confirmation.png" alt="Checkout confirmation">
+        <a href="checkout-confirmation.png">
+          <img src="checkout-confirmation.png" alt="Checkout confirmation">
+        </a>
       </figure>
       <p>If the checkout was a guest checkout, the checkout confirmation page includes a form which allows the shopper to create a user account. If the shopper creates their account, a background job copies details from the checkout (e.g. addresses, payment) to their user account.</p>
 

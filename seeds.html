@@ -38,7 +38,7 @@ $ <kbd>bin/rails db:seed</kbd></samp></pre>
       </nav>
 
       <h2 id="seeding-a-new-development-environment">Seeding a New Development Environment</h2>
-      <p>To demonstrate seeds, consider the fictional Workarea application <cite>Boardgamz</cite>, newly created within a fresh <a>Workarea app</a>.</p>
+      <p>To demonstrate seeds, consider the fictional Workarea application <cite>Boardgamz</cite>, newly created from the <a>app template</a>.</p>
 
       <h3 id="before-seeding">Before Seeding</h3>
       <p>This environment has no MongoDB databases, collections, or documents, except for the default <em>test</em> and <em>local</em> databases:</p>
@@ -53,7 +53,9 @@ health status index uuid pri rep docs.count docs.deleted store.size pri.store.si
 $</samp></pre>
       <p>You can start the application within the development environment, but you can’t do much with it:</p>
       <figure>
-        <img src="before-seeding.png" alt="Before seeding">
+        <a href="before-seeding.png">
+          <img src="before-seeding.png" alt="Before seeding">
+        </a>
       </figure>
       <p>There is no navigation and nothing to search for. There are no products, categories, or content to browse. The Admin is inaccessible because there are no users who can authenticate as administrators.</p>
       <p>To use this application, you need data. If you’re new to Workarea, you may be surprised how much data is required for a typical flow, such as the process of adding some products to the cart and checking out. This path requires at least a few model instances from each of the following business domains:</p>
@@ -161,13 +163,17 @@ epoch timestamp count
 $</samp></pre>
       <p>The upshot of this is a usable Storefront, complete with products, categories, content, navigation, and other data:</p>
       <figure>
-        <img src="after-seeding.png" alt="After seeding">
+        <a href="after-seeding.png">
+          <img src="after-seeding.png" alt="After seeding">
+        </a>
       </figure>
 
       <h3 id="admin-access">Admin Access</h3>
       <p>Seeding also provides access to the Admin, which is displaying order and analytics data that was also seeded:</p>
       <figure>
-        <img src="seeded-admin.png" alt="Seeded Admin">
+        <a href="seeded-admin.png">
+          <img src="seeded-admin.png" alt="Seeded Admin">
+        </a>
       </figure>
       <p>In a development environment, the following credentials provide super admin privileges (assuming you haven’t customized your admin user seeds):</p>
       <figure>
@@ -207,7 +213,9 @@ Aerodynamic Linen Keyboard
 $</samp></pre>
       <p>As another example, the image below shows the Storefront after re-seeding. Comparing it to the Storefront image above, you can see the “Header Promo Body” is identical, while the navigation is similar but different:</p>
       <figure>
-        <img src="after-re-seeding.png" alt="After re-seeding">
+        <a href="after-re-seeding.png">
+          <img src="after-re-seeding.png" alt="After re-seeding">
+        </a>
       </figure>
       <p>The uniformity of seeds makes them valuable for the following additional use cases:</p>
       <ul>
@@ -286,7 +294,9 @@ index 1fc7ea7..7c4d768 100644
 103</samp></pre>
       <p>If you compare the result to the same query above, you can see there are additional products in the database. These additional products include data to support the functionality of the clothing, package products, and gift cards plugins. To boot, the reviews plugin adds rating and review data to <em>all</em> products. You can see some of these new products and additional data in the following view of the Storefront:</p>
       <figure>
-        <img src="seeds-from-plugins.png" alt="Seeds from plugins">
+        <a href="seeds-from-plugins.png">
+          <img src="seeds-from-plugins.png" alt="Seeds from plugins">
+        </a>
       </figure>
 
       <h2 id="summary">Summary</h2>

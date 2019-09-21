@@ -108,7 +108,6 @@
 &quot;5ab2b04beefbfe1185011c9b&quot;]
 &gt; <kbd>item.discountable</kbd>
 =&gt; true</samp></pre>
-      <p>The forthcoming guide, “Managing Carts”, will describe API calls for fetching these details and storing them on the order item.</p>
 
       <h3 id="price-adjustments">Price Adjustments</h3>
       <p>Each time an order is priced, the granular pricing details are stored on the item as <em>price adjustments</em>, an embedded collection of type <code>Workarea::PriceAdjustment</code>. These embedded documents provide the necessary details to determine the total price of an item (in the case of a cart) and a record of how that price was determined (in the case of a placed order).</p>
@@ -135,7 +134,7 @@
       <p>Returning to the order, in addition to items, consumers can add promo codes, which may qualify the order or its items for discounts, resulting in more favorable pricing for the consumer. Unlike items, which are embedded documents, promo codes are simply strings stored in an array on the order.</p>
       <pre><samp>&gt; <kbd>order.promo_codes</kbd>
 =&gt; [&quot;10PERCENTOFF&quot;]</samp></pre>
-      <p>The order model provides API calls to add promo codes, which ensure the collection contains only unique, uppercase string values. The forthcoming “Managing Carts” guide will cover this topic.</p>
+      <p>The order model provides API calls to add promo codes, which ensure the collection contains only unique, uppercase string values.</p>
 
       <h2 id="order-totals">Order Totals</h2>
       <p>Similarly to item totals, when the pricing module prices an order, it writes the order-level totals to the order as fields. For a cart, these values represent the last calculated “asking price” of the order, and for a placed order they represent the final transaction prices. The Storefront displays these values in the cart and checkout for the consumer, and the Admin displays these values to the retailer in the order administration screens and reports.</p>
