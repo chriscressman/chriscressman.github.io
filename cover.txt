@@ -1,244 +1,215 @@
+Cover Letter
+======================================================================
+
+I love software engineering.
+At Workarea, a Philadelphia-based ecommerce platform, I quickly grew from entry-level front-end engineer to front-end team lead and architect.
+Then, when the company pivoted from client services to product, I pivoted to full-stack application development.
+Driving me was the need to always have a challenge; always be learning.
+However for as long as I've been learning software development, I've also been teaching it.
+
+In 2008, as a hobbyist, I founded the software engineering community group Refresh Doylestown.
+Then, as my professional career began, building an engineering community slowly shifted from suburban Doylestown to Center City Philadelphia, within the walls of Workarea.
+There, I surpassed my accomplishments as an individual contributor with my accomplishments as a multiplier--an influencer and enabler focused on making everyone else a little bit better.
+Already at the "top" of the organization, I moved around laterally, finding my best fit.
+Finally, internal documentation and training efforts transitioned to external, and I found myself in a position of my own creation: technical writer.
+
+In early 2018, along with others at Workarea, I become a full-time remote worker.
+It was most likely this change, along with a shrinking engineering team at Workarea, that returned me to the broader engineering community outside of Workarea.
+
+In May of this year, I joined the Lancaster Elastic User Group.
+In August, at my third meeting, I presented.
+Through this group, I've started to develop relationships with several Elastic employees, most notably Kellen Person, Mike Mulcahy, Mike Newswanger, Jason Stoltzfus, and Court Ewing.
+Furthermore, I've been increasing drawn to Elastic--to the products, the company, and the people
+I think I have a lot to offer Elastic, and Elastic a lot to offer me.
+Please give me a few more moments of your time to elaborate on this:
+
+
+The Value I See in Me
 ----------------------------------------------------------------------
 
-chronological summary of my background in software
+To Elastic, a technical writer is someone who can write documentation aimed at software developers.
 
-liberal arts education
-cofounded and coorganized refresh doylestown as a hobbyist in 2008
-joined the front end engineering team at Workarea (then WebLinc)
-in 2009
-over 5 years grew from my first professional position in software
-entry level front end engineer
-to Workarea's front end engineering team lead and architect
+combine technical skills and communication skills
+the need for good technical writers, particularly those with an enginering background, is growing
+I imagine Elastic is looking for individuals with this combined skillset
+I'll let my resume and portfolio speak for itself regarding my experience, accomplishments, and skills
 
-Refresh Doylestown meetups gave way to internal community building at Workarea
-regularly presented skill building, information, team-building sessions
-Documented internal standards, procedures, and best practices for my team
-Wrote technical articles for the company blog
-As team lead, shifted focus to improving others and building the team as a whole
+I'm systematic _and_ creative
+  Create software documentation which helps engineers develop their skills with the Workarea commerce platform
+  Develop mental models of topics through independent research, using/testing the software, reading its source, and reverse engineering its design from its implementation
+  Teach topics through a combination of abstractions and concrete examples (created or curated), organized to serve varying experience levels and learning styles
+  Evaluate past effectiveness and future priorities through coworker review and reader surveys
+  Create and maintain conceptual, procedural, and reference (REST/Ruby API) documents; refactoring, redesigning, and evolving them along with the software
+  Author docs in HTML and Markdown as part of a build system, and as source code annotations and tests which generate documentation
+  Maintain multiple development environments, demo applications, and sample data for experimentation, debugging, and screenshots
+  Develop tools to manage and search across 100+ local source code repositories
+  Remain tightly integrated with Product Engineering through product design meetings, testing, opening issues, and suggesting improvements based on documentation research and outcomes
+  learning software deeply so that its users don't need to
+  provide them with an abstraction layer that alleviates the need
+  to read and understand the source
+  solitude
 
-when workarea decided to pivot to a product company
-i was chosen as 1 of 2 founding members of the product team
-grew by learning the full software stack
-continued fostering the internal engineering community
-Created and organized the “Workarea Developer: Fundamentals” series to further our internal engineering community
-Organized and/or presented bi-weekly presentations and workshops on technical topics relevant to Workarea engineers
-Encouraged contributions to Workarea’s products with “Chris Cressman’s Shoutout of the Week”, which engineers coveted (to my delight)
+I self-educate, aggressively
+  autodidact; excellent self-learner
+  agressive self education
+  excited to work with new technology, tools, people
+  want to come in and learn new things
+  the ability to learn hard things quickly
+  mostly due to excellent processes that I've developed over time
+  good habits
+  can learn anything with the right plan and effort
+  ultralearning is hard and frustrating and requires stretching outside
+  the limits of where you feel comfortable
+  become good at something that seems impossible to you right now
+  learning has a cumulative effect
+  it compounds, like interest
+  each thing you learn builds your confidence
+  and makes the next time easier
+  good habits; active practice and experimentation vs passive learning
+  i've grown to be fearless
+  not afraid of what mistakes i may make, or failing or being criticized
+  which gives me the courage to take on things others wouldn't
+  and to stick with them when they are difficult
+  personal growth
+    focus on writing, work with other writers
+    larger company, more structure
+    make an impact at a larger scale
+    budget to pursue good ideas and do things right
+    ensure a quality bar is met
+  personal growth
+  becoming an amazing writer
+  haven't identified as a technical writer
+  in part because technical writing job descriptions don't sound
+  like the work I do now or the work I want to do
+  but Kellen's description of the work at Elastic overlaps with my
+  experience and interests and skills/strengths
+  like the title documentation engineer
+  reflects the skills of a softare engineer and a writer/communicator
+  a have a dual skillset which is rare and valuable
+  seeking challenges
+  i learn from my mistakes
+  i use pain to help me; reflect on pain
+  i'm determined; i persevere;
+  i show up every day; i keep pushing, keep making progress
+  i overcome my obstacles
+  i see obstacles as opportunities
+  they are tests of your character and problem solving skills
+  personal growth is the process of overcoming obstacles,
+  maintaining your character, and solving problems
+  ongoing personal growth is what drives me
+  you're either moving forward or you're moving backward
+  those without obstacles stagnate
+  within human nature to face challenges; always have a challenge
+  want to succeed inside the company and beyond
+  within the industry at large
+  want to be surrounded by talent
+  and be continually challenged
 
-in 2016, when workarea was trying to bring on partners to sell our platform
-we needed to introduce those partners engineers to our platform
-and begin to build their skills with teh platform
-so I developed a 3-day workshop to introduce Workarea to developers and begin to build their skills with the platform
-Condensed Workarea fundamentals into a cohesive 3-part narrative
-Presented initially to partners, but later adopted as an internal onboarding tool as well
-Built a virtualized development environment for workshop attendees, which was later adopted as a general development tool for the Workarea platform
-Performed as the initial instructor and later guided other instructors to present the workshop using my materials
+I deliver vision and execution
+  vision and execution
+  vision, committment to long term results, not short term gains
+  the ability to "show up" every day and make incremental progress
+  even when there are no immediate gains to keep me motivated
+  sustained focus
+  ability to organize large, complex things
+  ability to see the simplicity beneath the complexity
+  building mental models
+  delivering docs (words and pictures) which communicate those models
+  the simplicity beneath the complexity
 
-during that time i was also writing technical documentation for the platform
-we decided i should work on docs exclusively and allow others to continue using my training materials
-or develop new ones based on the documentation I produce
+I'm self-directed and reflective
+  i haven't had a manager at work for 5+ years
+  I take responsibility for myself
+  I have great habits
+  a bias toward action
+  when I want to change something, I _do_ it
+  losing over 100 lbs
+  converting my family of 4 to a plant-based diet
+  fixing my posture
+  fixing my acid reflux
+  fixing my flat feet
+  fixing my sluggishness
+  learning vim, unix, shell scripting
+  learning ruby libs for elasticsearch
+  I set the agenda for documentation and training
+  Designed it from my own understanding of the software
+  that I developed over years of experience
 
-Create software documentation which helps engineers develop their skills with the Workarea commerce platform
-Develop mental models of topics through independent research, using/testing the software, reading its source, and reverse engineering its design from its implementation
-Teach topics through a combination of abstractions and concrete examples (created or curated), organized to serve varying experience levels and learning styles
-Evaluate past effectiveness and future priorities through coworker review and reader surveys
-Create and maintain conceptual, procedural, and reference (REST/Ruby API) documents; refactoring, redesigning, and evolving them along with the software
-Author docs in HTML and Markdown as part of a build system, and as source code annotations and tests which generate documentation
-Maintain multiple development environments, demo applications, and sample data for experimentation, debugging, and screenshots
-Develop tools to manage and search across 100+ local source code repositories
-Remain tightly integrated with Product Engineering through product design meetings, testing, opening issues, and suggesting improvements based on documentation research and outcomes
+I'm a multiplier
+  I like teaching/educating devs
+  because of the multiplier aspect of it
+  as a writer, I'd only have to make 10 people 1x better
+  or make 20 people 1/2x better
+  to reach legendary 10x status
+  since I'm good at it, this is a much better way for me to make
+  an impact that doing engineering
+  because there aren't a lot of people that can do what I do
+  so I sort of feel like it's my calling to do this
+  to play some kind of important role in furthering software development
+  through developer education
+  i'm a multiplier
+  educator
+  mentor
+  community builder
+  communicator
 
+
+The Value I See in Elastic
 ----------------------------------------------------------------------
 
-getting interested in Elastic
-
-This year, I got involved with community events again
-lancaster meetup
-met bunch of elastic people are started being drawn to elastic
-
-talked to lots of elastic employees so far
-drawn to elastic
-mission - elastic is a search company
-community - devs love elastic
 personal growth
   focus on writing, work with other writers
   larger company, more structure
   make an impact at a larger scale
   budget to pursue good ideas and do things right
   ensure a quality bar is met
-distributed-first - committed to that style, solitude
-
-Kellen Person
-Mike Newswanger
-Court Ewing
-Jason Stoltzfus
-Mike Mulcahy
-Paul Springer (pending)
-Mark Tozzi
-Aaron Aldrich
-Faith Westdorp
-
-----------------------------------------------------------------------
-
-what I bring to the table, broad strokes going across my history
-my skills; the value I provide
-
-To Elastic, a technical writer is someone who can write documentation aimed at software developers.
-
-combine technical skills and communication skills
-elastic has a need for my skills
-technical and communication in the same person
-the need for good technical writers, those with an enginering background,
-is growing
-
-multiplier
-
-i'm a multiplier
-educator
-mentor
-community builder
-communicator
-
-I like teaching/educating devs
-because of the multiplier aspect of it
-as a writer, I'd only have to make 10 people 1x better
-or make 20 people 1/2x better
-to reach legendary 10x status
-since I'm good at it, this is a much better way for me to make
-an impact that doing engineering
-because there aren't a lot of people that can do what I do
-so I sort of feel like it's my calling to do this
-to play some kind of important role in furthering software development
-through developer education
-
-sustained focus
-ability to organize large, complex things
-ability to see the simplicity beneath the complexity
-building mental models
-delivering docs (words and pictures) which communicate those models
-the simplicity beneath the complexity
-
-learning software deeply so that its users don't need to
-provide them with an abstraction layer that alleviates the need
-to read and understand the source
-
-autodidact; excellent self-learner
-agressive self education
-excited to work with new technology, tools, people
-want to come in and learn new things
-the ability to learn hard things quickly
-mostly due to excellent processes that I've developed over time
-good habits
-can learn anything with the right plan and effort
-
-vision, committment to long term results, not short term gains
-the ability to "show up" every day and make incremental progress
-even when there are no immediate gains to keep me motivated
-
-i'm self-directed
-i haven't had a manager at work for 5+ years
-I take responsibility for myself
-
-ultralearning is hard and frustrating and requires stretching outside
-the limits of where you feel comfortable
-become good at something that seems impossible to you right now
-learning has a cumulative effect
-it compounds, like interest
-each thing you learn builds your confidence
-and makes the next time easier
-good habits; active practice and experimentation vs passive learning
-
-a bias toward action
-when I want to change something, I _do_ it
-losing over 100 lbs
-converting my family of 4 to a plant-based diet
-fixing my posture
-fixing my acid reflux
-fixing my flat feet
-fixing my sluggishness
-learning vim, unix, shell scripting
-learning ruby libs for elasticsearch
-
-my skills with my tools are like super powers that make other things easy
-like my unix skills
-
-transformed myself physically; now transform my career
-
-work in solitude with bursts of collaboration
-
-i've grown to be fearless
-not afraid of what mistakes i may make, or failing or being criticized
-which gives me the courage to take on things others wouldn't
-and to stick with them when they are difficult
-
-I have great habits
-
-started working remotely in 2017
-switched to almost full time in Jan 2018
-
-----------------------------------------------------------------------
-
-why I'm drawn to elastic
-
-----------------------------------------------------------------------
-
-personal growth
-becoming an amazing writer
-haven't identified as a technical writer
-in part because technical writing job descriptions don't sound
-like the work I do now or the work I want to do
-but Kellen's description of the work at Elastic overlaps with my
-experience and interests and skills/strengths
-like the title documentation engineer
-reflects the skills of a softare engineer and a writer/communicator
-a have a dual skillset which is rare and valuable
-
-seeking challenges
-i learn from my mistakes
-i use pain to help me; reflect on pain
-i'm determined; i persevere;
-i show up every day; i keep pushing, keep making progress
-i overcome my obstacles
-i see obstacles as opportunities
-they are tests of your character and problem solving skills
-personal growth is the process of overcoming obstacles,
-maintaining your character, and solving problems
-ongoing personal growth is what drives me
-you're either moving forward or you're moving backward
-those without obstacles stagnate
-within human nature to face challenges; always have a challenge
-
-want to succeed inside the company and beyond
-within the industry at large
-want to be surrounded by talent
-and be continually challenged
-
-----------------------------------------------------------------------
+  becoming an amazing writer
+  haven't identified as a technical writer
+  in part because technical writing job descriptions don't sound
+  like the work I do now or the work I want to do
+  but Kellen's description of the work at Elastic overlaps with my
+  experience and interests and skills/strengths
+  like the title documentation engineer
+  reflects the skills of a softare engineer and a writer/communicator
+  a have a dual skillset which is rare and valuable
+  seeking challenges
+  i learn from my mistakes
+  i use pain to help me; reflect on pain
+  i'm determined; i persevere;
+  i show up every day; i keep pushing, keep making progress
+  i overcome my obstacles
+  i see obstacles as opportunities
+  they are tests of your character and problem solving skills
+  personal growth is the process of overcoming obstacles,
+  maintaining your character, and solving problems
+  ongoing personal growth is what drives me
+  you're either moving forward or you're moving backward
+  those without obstacles stagnate
+  within human nature to face challenges; always have a challenge
+  want to succeed inside the company and beyond
+  within the industry at large
+  want to be surrounded by talent
+  and be continually challenged
 
 community
-
-represent and evangelize my company and products at community events
-lancaster meetup
-philly meetup?
-cposc
-barcamp
-i've done a lot of technical presentations
-but also have soft skills
-
-----------------------------------------------------------------------
+  community - devs love elastic
+  represent and evangelize my company and products at community events
+  lancaster meetup
+  philly meetup?
+  cposc
+  barcamp
+  i've done a lot of technical presentations
+  but also have soft skills
 
 mission
-
-elastic is a search company
-how much the scope of search has changed in the last 10 years
-where will it go in the next 10?
-it's an exiting question
-one that will likely be answered at elastic
-i'd like to be a part of that
-
-purpose
-having a vision and seeing it through
-being part of a larger vision; something larger than myself
-setting ego aside, making it about the work
-working with other people toward something bigger than you
-
-----------------------------------------------------------------------
+  elastic is a search company
+  how much the scope of search has changed in the last 10 years
+  where will it go in the next 10?
+  it's an exiting question
+  one that will likely be answered at elastic
+  i'd like to be a part of that
+  purpose
+  having a vision and seeing it through
+  being part of a larger vision; something larger than myself
+  setting ego aside, making it about the work
+  working with other people toward something bigger than you
