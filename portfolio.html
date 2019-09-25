@@ -39,80 +39,28 @@
       <div class="main">
 
         <h1>Portfolio</h1>
-        <p>Overall introduction.</p>
+        <p>I’ve chosen the following publicly available examples to represent my work:</p>
 
         <h2 id="architecting-a-search-feature">Architecting a Search Feature</h2>
-<!--
-did it in my free time
-demonstrates my interest and expertise in Elastic
-not docs, but similar
-should do a longer write up on this one
-Presentation was important project because I had to study the code of
-9 libraries that were new to me
-not workarea
-and I had limited time to produce something of value
-found a way to contribute something unique and creative rather than
-just walk through API calls
-wrote significant portions of a rails app for this presentation
-to have consistent, cohesive code examples
-and to learn by doing
-getting things done
-you get shit done
-balance preparation and execution
-&quot;Chris Crushman&quot;
-&quot;Lazer Focus&quot;
-tendency toward action, accomplishment
-vision
--->
+        <p>This presentation, delivered to the <cite>Lanacaster Elastic User Group</cite> this past August, demonstrates my ability to learn quickly and create useful abstractions for teaching. The project, conducted in my free time, required me to learn nine Ruby libraries which provide Elasticsearch integrations with Ruby and Rails. While these libraries provide excellent API documentation, I saw an opportunity to provide a higher-level explanation of how to effectively design a search feature using these tools. In the presentation, I provide an abstract procedure for doing so, and I back it up with concrete examples. To provide the examples, I wrote the model layer and Elasticsearch integrations for an example Ruby on Rails application. I later made the source for this application available as well.</p>
         <p>
-          <a class="external-link" target="_blank" rel="noopener noreferrer" href="https://bitbucket.org/chriscressman/public-domain-paperbacks/src/master/">
-            <span>Public Domain Paperbacks</span>
+          <a class="external-link" target="_blank" rel="noopener noreferrer" href="https://bitbucket.org/chriscressman/public-domain-paperbacks/raw/53d659fcee7ed4dc84de42b376d2f32eae69c14e/presentation.pdf">
+            <span>Presentation Slides (PDF)</span>
             <img alt="new window" src="external-link-icon.svg">
           </a>
         </p>
         <p>
-          <a class="external-link" target="_blank" rel="noopener noreferrer" href="https://bitbucket.org/chriscressman/public-domain-paperbacks/raw/53d659fcee7ed4dc84de42b376d2f32eae69c14e/presentation.pdf">
-            <span>Presentation Slides</span>
+          <a class="external-link" target="_blank" rel="noopener noreferrer" href="https://bitbucket.org/chriscressman/public-domain-paperbacks/src/master/">
+            <span>Example Application Source</span>
             <img alt="new window" src="external-link-icon.svg">
           </a>
         </p>
 
         <h2 id="workarea-developer-documentation">Workarea Developer Documentation</h2>
-<!--
-make it clear that workarea isn&#39;t a normal library/framework
-not a toolkit for building things
-but an almost-finished product that needs to be connected and extended
-needs to be &quot;finished&quot;
-The more contexts in which you learn/experience something,
-the more you create abstract models of that thing
-and the less you rely on any specific/concrete example
-you therefore become better at apply that knowledge to something
-you haven&#39;t seen before
-which is the essence of creativity
-being able to apply knowledge/skills from one discipline to another,
-because you&#39;ve developed a mental model of it that is abstracted
-from specific concrete examples
--->
+        <p>I’ve republished here several articles I’ve written for engineers using the Workarea commerce platform. I created a new stylesheet and "unlinked" some hyperlinks so that these articles can stand alone in this context.</p>
 
         <h3 id="inventory">Inventory</h3>
-<!--
-strong introduction, this is what I was focusing on when I wrote this
-very recent
-conceptual
-no summary, but I could add one
-Integrate an Inventory Management system
-should also consider this
-define and configure inventory policies
-nice short procedural doc
-the value of having the skills of an engineer
-when documenting payment tenders
-the design of the platform does not formally distinguish between
-advance payment tenders and primary tenders
-but that distinction is useful to engineers implementing their own tenders
-so I discovered that distinction by observing patterns in implementations
-and called it out as a concept in the docs
-and used it to fork my examples as needed to cover the two types
--->
+        <p>These documents demonstrate a common pattern I use for organizing a topic: a concept document and multiple procedural documents focusing on specific tasks or skills that engineers are commonly asked to complete or acquire. These documents also provide examples of strong introductions, which was the area of my writing I was trying to improve while writing these.</p>
         <p>
           <a class="external-link" target="_blank" href="inventory.html">
             <span>Inventory</span>
@@ -133,15 +81,7 @@ and used it to fork my examples as needed to cover the two types
         </p>
 
         <h3 id="checkout">Checkout</h3>
-<!--
-mostly conceptual, but also procedural at the end
-screenshots and diagrams
-relatively recent
-ideally rewrite into, add summary
-would have to fix the flowchart
-has a fairly rigid structure; easy to follow if you don&#39;t know the material
-want want to re-organize the sections after I have a good stylesheet in place
--->
+        <p>This document demonstrates the use of screenshots, diagrams, and code examples to explain a topic. This document predates Workarea's source being publicly available (for hyperlinking), so I provide commands to open the relevant source code files in engineers' local development environments.</p>
         <p>
           <a class="external-link" target="_blank" href="checkout.html">
             <span>Checkout</span>
@@ -150,6 +90,7 @@ want want to re-organize the sections after I have a good stylesheet in place
         </p>
 
         <h3 id="diagrams">Order Pricing Diagrams</h3>
+        <p>Workarea's architect and lead engineer told me, "I don't know how you're going to explain pricing", referring to the complexity of the topic. To manage this complexity, I created a large number of diagrams. These diagrams worked backward from the user interface to explain a particular price, because this is the task an engineer is most commonly asked to perform regarding pricing. The diagrams deconstruct the UI into "pricing totals" API calls, which are each derived by summing "price adjustments", which are themselves derived from "pricing calculators". By reducing pricing to these three concepts, I made pricing accessible to all Workarea engineers.</p>
         <p>
           <a class="external-link" target="_blank" href="order-pricing-placed-order-example.png">
             <span>User Interface</span>
@@ -182,6 +123,7 @@ want want to re-organize the sections after I have a good stylesheet in place
         </p>
 
         <h3 id="diagrams">Commerce Model Diagrams</h3>
+        <p>Workarea's documentation was written by a variety of authors over a long period of time. It is therefore disjointed and lacks a coherent narrative. To begin to solve this problem, I created a diagram that models the entire Workarea system, reducing it to a cycle of activity. The diagram represents a narrative of the system, which I will use to unite Workarea's disperse documentation over time. Variations of the diagram can be used to explain how a specific topic or article fits into the overall narrative.</p>
         <p>
           <a class="external-link" target="_blank" href="commerce-model.png">
             <span>Commerce Model</span>
@@ -196,11 +138,7 @@ want want to re-organize the sections after I have a good stylesheet in place
         </p>
 
         <h3 id="orders-items">Orders &amp; Items</h3>
-<!--
-really good doc
-focuses on domain concepts, definitions, and data modeling
-has a simple, clear outline
--->
+        <p>This document demonstrates my ability to explain domain concepts, in this case orders and items, from the perspective of the Workarea system.</p>
         <p>
           <a class="external-link" target="_blank" href="orders-and-items.html">
             <span>Orders &amp; Items</span>
@@ -209,12 +147,7 @@ has a simple, clear outline
         </p>
 
         <h3 id="seeds">Seeds</h3>
-<!--
-primarily conceptual
-content is fairly simple; easy to follow as a non-expert
-demonstrates my skills with command line and databases
-has a summary
--->
+        <p>I included this document because it demonstrates my skills with databases and the Unix shell</p>
         <p>
           <a class="external-link" target="_blank" href="seeds.html">
             <span>Seeds</span>
@@ -223,58 +156,22 @@ has a summary
         </p>
 
         <h2 id="workarea-training-exercises">Workarea Training Exercises</h2>
-<!--
-this training followed a cohesive narrative that revolved around important Workarea domain concepts:
-products, merchandising, and orders
-(I like to explain ecommerce systems as machines that take a catalog of products as their input,
-merchandise them to encourage sales,
-and product orders as their output)
-the design for this training involved 3 parts:
-a virtualized, turnkey development environment to get each developer (windows, mac, or linux)
-up and running with a workarea application with all its dependencies
-in a matter of minutes
-a series of 26 exercises, which participants would complete (hands on) over the next 4 days
-lecture/presentation materials
-conducted as a workshop more than a lecture, although there were guest speakers
-who were primarily there to lecture, answer questions, and otherwise break up the day
-also intended to hold up as a &quot;take home&quot; set of practice exercises
-that the devs could use to further practice and develop the skills
-peak
-deliberate practice
-framework for skill acquisition (skills vs knowledge)
-develop your mental model(s)
-through focused exercises
-that make you struggle
-and provide feedback
-that allows you to correct your mistakes
-and improve
-I&#39;m proud of these exercises given the time spent on them and the value the company
-got from them
-My only regret is not making them test-driven, but I ran out of time
-Surprising, these held up for 2+ years of trainings by multiple trainers
-without any changes or additions
--->
-        <p>
-          <a class="external-link" target="_blank" rel="noopener noreferrer" href="https://bitbucket.org/chriscressman/workarea-training-exercises/src/master/">
-            <span>Workarea Training Exercises</span>
-            <img alt="new window" src="external-link-icon.svg">
-          </a>
-        </p>
+        <p>This source code repository contains a series of commits, each representing the starting point or solution to an exercise included in the <cite>Workarea Fundamentals</cite> workshop I designed. The pattern for most of the exercises is to provide the students with a problem (described in the lecture materials) and some boilerplate (shown here), and then have them complete the solution (also shown here). I developed these exercises along with a turnkey, virtualized development environment and lecture materials for the trainings.</p>
         <p>
           <a class="external-link" target="_blank" rel="noopener noreferrer" href="https://bitbucket.org/chriscressman/workarea-training-exercises/commits/">
-            <span>Commits View</span>
+            <span>All Exercises</span>
             <img alt="new window" src="external-link-icon.svg">
           </a>
         </p>
         <p>
           <a class="external-link" target="_blank" rel="noopener noreferrer" href="https://bitbucket.org/chriscressman/workarea-training-exercises/commits/fe3c444e64e23288ce187ea390872969a87f5a97">
-            <span>Boilerplate</span>
+            <span>Example Exercise: Boilerplate</span>
             <img alt="new window" src="external-link-icon.svg">
           </a>
         </p>
         <p>
           <a class="external-link" target="_blank" rel="noopener noreferrer" href="https://bitbucket.org/chriscressman/workarea-training-exercises/commits/00fe7d5fb8bc2e703030d00b01850b9d03dfb2ed">
-            <span>Implementation</span>
+            <span>Example Exercise: Solution</span>
             <img alt="new window" src="external-link-icon.svg">
           </a>
         </p>
