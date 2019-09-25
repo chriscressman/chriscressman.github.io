@@ -57,7 +57,7 @@
         </p>
 
         <h2 id="workarea-developer-documentation">Workarea Developer Documentation</h2>
-        <p>I’ve republished here several articles I’ve written for engineers using the Workarea commerce platform. I created a new stylesheet and "unlinked" some hyperlinks so that these articles can stand alone in this context.</p>
+        <p>I’ve republished here several articles I’ve written for engineers using the Workarea commerce platform. I created a new stylesheet and “unlinked” some hyperlinks so that these articles can stand alone in this context.</p>
 
         <h3 id="inventory">Inventory</h3>
         <p>These documents demonstrate a common pattern I use for organizing a topic: a concept document and multiple procedural documents focusing on specific tasks or skills that engineers are commonly asked to complete or acquire. These documents also provide examples of strong introductions, which was the area of my writing I was trying to improve while writing these.</p>
@@ -81,7 +81,7 @@
         </p>
 
         <h3 id="checkout">Checkout</h3>
-        <p>This document demonstrates the use of screenshots, diagrams, and code examples to explain a topic. This document predates Workarea's source being publicly available (for hyperlinking), so I provide commands to open the relevant source code files in engineers' local development environments.</p>
+        <p>This document demonstrates the use of screenshots, diagrams, and code examples to explain a topic. This document predates Workarea’s source being publicly available (for hyperlinking), so I provide commands to open the relevant source code files in engineers’ local development environments.</p>
         <p>
           <a class="external-link" target="_blank" href="checkout.html">
             <span>Checkout</span>
@@ -89,8 +89,8 @@
           </a>
         </p>
 
-        <h3 id="diagrams">Order Pricing Diagrams</h3>
-        <p>Workarea's architect and lead engineer told me, "I don't know how you're going to explain pricing", referring to the complexity of the topic. To manage this complexity, I created a large number of diagrams. These diagrams worked backward from the user interface to explain a particular price, because this is the task an engineer is most commonly asked to perform regarding pricing. The diagrams deconstruct the UI into "pricing totals" API calls, which are each derived by summing "price adjustments", which are themselves derived from "pricing calculators". By reducing pricing to these three concepts, I made pricing accessible to all Workarea engineers.</p>
+        <h3 id="order-pricing-diagrams">Order Pricing Diagrams</h3>
+        <p>Workarea’s architect and lead engineer told me, “I don’t know how you’re going to explain pricing”, referring to the complexity of the topic. To manage this complexity, I created many diagrams. These diagrams worked backward from the user interface to explain a particular price, because this is the task an engineer is most commonly asked to perform regarding pricing. The diagrams deconstruct the UI into <i>pricing totals</i> API calls, which are each derived by summing <i>price adjustments</i>, which are themselves derived from <i>pricing calculators</i>. By reducing pricing to these three concepts, I made pricing more accessible to Workarea engineers.</p>
         <p>
           <a class="external-link" target="_blank" href="order-pricing-placed-order-example.png">
             <span>User Interface</span>
@@ -122,8 +122,8 @@
           </a>
         </p>
 
-        <h3 id="diagrams">Commerce Model Diagrams</h3>
-        <p>Workarea's documentation was written by a variety of authors over a long period of time. It is therefore disjointed and lacks a coherent narrative. To begin to solve this problem, I created a diagram that models the entire Workarea system, reducing it to a cycle of activity. The diagram represents a narrative of the system, which I will use to unite Workarea's disperse documentation over time. Variations of the diagram can be used to explain how a specific topic or article fits into the overall narrative.</p>
+        <h3 id="commerce-model-diagrams">Commerce Model Diagrams</h3>
+        <p>Workarea’s documentation was written by numerous authors over many years. It therefore lacks a coherent narrative. To address this, I created a diagram that models the entire Workarea system, reducing it to a handful of domain concepts. The diagram supports a story of the system that I will use to unify Workarea’s documentation over time. I’ll use variations of the diagram, such as the order pricing example below, to explain how a specific topic or article fits into the overall Workarea narrative.</p>
         <p>
           <a class="external-link" target="_blank" href="commerce-model.png">
             <span>Commerce Model</span>
@@ -147,7 +147,7 @@
         </p>
 
         <h3 id="seeds">Seeds</h3>
-        <p>I included this document because it demonstrates my skills with databases and the Unix shell</p>
+        <p>I included this document as an additional example that demonstrates my skills with databases and the Unix shell.</p>
         <p>
           <a class="external-link" target="_blank" href="seeds.html">
             <span>Seeds</span>
@@ -177,12 +177,10 @@
         </p>
 
         <h2 id="learn-rails-initialization">Learn Rails Initialization</h2>
-        <p>Rails gives you a lot of places to put initialization code, and the order in which they run is only partially documented. Once, Rails initialization order caused a problem for us twice in the same week, so I decided I wanted to solve this problem. Sometimes the best way to learn is by doing, so I created an application which resembled a real-world Workarea application (with several plugins installed). Then I inserted logging code all throughout the application and plugin to log every possible place initialization could be run.</p>
-        <p>The resulting log provided a definitive answer to the order in which all Rails initializers are run. I shared this with the team. This probably took me a couple hours at most and solved an issue that had been hurting us for a while.</p>
-        <p>I like to learn through experimentation and exploration. I regularly create disposable applications to answer specific questions about the software. In this case I happened to keep the app as a reference for me and the team, which is good so I can share it with you here.</p>
+        <p>I like to learn through experimentation and exploration. To this end, I regularly create disposable applications to answer specific questions about the software I’m studying. I kept this particular app around because it answered a question that came up again and again on our team: In what order do Rails’ initializers run? Since Rails does not document this sufficiently enough, I created an app that represented our real world scenario, inserted logging code, and generated a log that provided the answer.</p>
         <p>
           <a class="external-link" target="_blank" rel="noopener noreferrer" href="https://bitbucket.org/chriscressman/learn-rails-initialization/src/master/">
-            <span>Learn Rails Initialization</span>
+            <span>Application</span>
             <img alt="new window" src="external-link-icon.svg">
           </a>
         </p>
@@ -212,11 +210,11 @@
         </p>
         <p>While a nice score sheet indeed, I include this here mostly to bring up my background in organized sports. Team sports, particularly demanding year-round sports, likely played a large role in shaping who I am today. I attribute many import life and business lessons to my experiences on these teams, such as:</p>
         <ul>
-          <li>Determination: “showing up” (literally and figuratively) every day, even when it’s hard or you don’t want to</li>
-          <li>Rapid learning and skill development: drills, repetition, pushing beyond your comfort zone</li>
-          <li>Reflection: learning from your mistakes; seeing them as opportunities to improve</li>
-          <li>Mission: sharing a vision with others who are equally determined; being a part of something larger than yourself</li>
-          <li>Achievement: trusting the process; watching small gains compound into great achievements</li>
+          <li><strong>Determination:</strong> “showing up” (literally and figuratively) every day, even when it’s hard or you don’t want to</li>
+          <li><strong>Rapid learning and skill development:</strong> drills, repetition, pushing beyond your comfort zone</li>
+          <li><strong>Reflection:</strong> learning from your mistakes; seeing them as opportunities to improve</li>
+          <li><strong>Mission:</strong> sharing a vision with others who are equally determined; being a part of something larger than yourself</li>
+          <li><strong>Achievement:</strong> trusting the process; watching small gains compound into great achievements</li>
         </ul>
 
         <h2 id="progressively-enhance-it">Progressively Enhance It!</h2>
