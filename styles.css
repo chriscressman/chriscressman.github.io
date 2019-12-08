@@ -4,44 +4,15 @@
 }
 
 body {
-  /*background-image: url('baseline-24px.png');*/
-  font-family: 'Quattrocento', serif;
+  margin: 0 auto 48px;
+  padding: 0 24px;
+  max-width: 672px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-size: 16px;
   line-height: 24px;
   background: whitesmoke;
-}
-
-a {
-  color: inherit;
-  font-weight: bold;
-  text-decoration: none;
-  border-bottom: 2px solid royalblue;
-}
-
-a:hover {
-  color: royalblue;
-}
-
-h1 {
-  margin: 12px 0 0;
-  font-size: 54px;
-  line-height: 72px;
-  font-weight: bold;
-  text-align: center;
-}
-
-h2 {
-  margin: 48px 0 0;
-  font-size: 36px;
-  line-height: 36px;
-  font-weight: bold;
-}
-
-h3 {
-  margin: 36px 0 -12px;
-  font-size: 24px;
-  line-height: 36px;
-  font-weight: bold;
+  background-image: url('baseline-24px.png');
+  background-image: none;
 }
 
 p {
@@ -65,110 +36,59 @@ ul ol {
   margin-top: 0;
 }
 
-.faux-heading {
-  margin-top: 12px;
-  margin-bottom: -16px;
-  font-style: italic;
+h1 {
+  font-size: 54px;
+  line-height: 72px;
+  font-weight: bold;
 }
 
-.external-link {
-  border: none;
+h2 {
+  font-size: 54px;
+  line-height: 72px;
+  font-weight: bold;
 }
 
-.external-link span {
-  border-bottom: 2px solid royalblue;
+h3 {
+  font-size: 36px;
+  line-height: 48px;
+  font-weight: bold;
 }
 
-.external-link img {
-  width: 16px;
-  height: 16px;
+h4 {
+  margin: 0 0 -24px;
+  font-size: 24px;
+  line-height: 48px;
+  font-weight: bold;
 }
 
-.banner-wrapper {
-  background: white;
-  border-bottom: 2px solid silver;
-}
-
-.banner {
-  margin: 0 auto;
-  padding: 12px 24px;
-  width: 672px;
-  text-align: center;
-}
-
-.header {
-  display: inline-table;
-  vertical-align: middle;
-  text-align: left;
-}
-
-.image {
-  display: table-cell;
-  padding: 0 12px;
-  vertical-align: top;
-}
-
-.image img {
-  display: block;
-  width: 92px;
-  height: 92px;
-  border-radius: 50%;
-  border: 2px solid silver;
-}
-
-.title {
-  display: table-cell;
-  padding: 0 12px;
-  vertical-align: top;
+nav {
+  font-size: 12px;
   color: dimgray;
 }
 
-.title p {
+nav p {
   margin: 0;
-  font-size: 14px;
 }
 
-.title strong {
-  font-weight: bold;
-  font-size: 18px;
-  color: black;
+header {
+  margin: 24px 0 48px;
 }
 
-.title a {
-  font-weight: normal;
-  border: none;
+address {
+  font-size: 12px;
+  color: dimgray;
 }
 
-.navigation {
+address p {
+  margin: 0;
+}
+
+section {
   margin: 24px 0 0;
-  list-style: none;
 }
 
-.navigation li {
-  display: inline;
-  font-size: 20px;
-}
-
-.navigation li + li:before {
-  content: '• ';
-  margin: 0 12px;
-  color: silver;
-}
-
-.navigation a {
-  color: royalblue;
-  border: none;
-}
-
-.navigation a:hover {
-  color: inherit;
-}
-
-.main-wrapper {
-}
-
-.main {
-  margin: 0 auto;
-  padding: 24px;
-  width: 672px;
+body > section {
+  margin: 48px 0 0;
+  padding: 23px 0 0;
+  border-top: 1px solid silver;
 }
