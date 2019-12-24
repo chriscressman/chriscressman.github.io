@@ -39,10 +39,11 @@ h1 {
 }
 
 h2 {
-  margin: 36px 0 12px;
+  margin: 36px 0 11px;
   font-size: 36px;
   line-height: 48px;
   font-weight: bold;
+  border-bottom: 1px solid gray;
 }
 
 h3 {
@@ -71,6 +72,11 @@ address p {
 address p + p:before {
   margin: 0 6px;
   content: '•'
+}
+
+.rule {
+  margin: 48px 0;
+  border-bottom: 1px solid gray;
 }
 
 .page-break {
